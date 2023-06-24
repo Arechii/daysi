@@ -3,6 +3,8 @@ import { createPost } from "~/app/actions";
 import { Button } from "~/components/button";
 import { api } from "~/trpc/server";
 
+export const runtime = "edge";
+
 export default async function Home() {
   const hello = await api.post.hello.query({ text: "from tRPC" });
 
