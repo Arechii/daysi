@@ -7,8 +7,10 @@
  * need to use are documented accordingly near the end.
  */
 
+import { experimental_createServerActionHandler } from "@trpc/next/app-dir/server";
 import { initTRPC } from "@trpc/server";
-import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
+import { type FetchCreateContextFnOptions } from "@trpc/server/adapters/fetch";
+import { headers } from "next/headers";
 import superjson from "superjson";
 import { ZodError } from "zod";
 
@@ -20,7 +22,9 @@ import { ZodError } from "zod";
  * These allow you to access things when processing a request, like the database, the session, etc.
  */
 
-type CreateContextOptions = Record<string, never>;
+type CreateContextOptions = {
+  headers: Headers;
+};
 
 /**
  * This helper generates the "internals" for a tRPC context. If you need to use it, you can export
@@ -32,8 +36,10 @@ type CreateContextOptions = Record<string, never>;
  *
  * @see https://create.t3.gg/en/usage/trpc#-serverapitrpcts
  */
-const createInnerTRPCContext = (_opts: CreateContextOptions) => {
-  return {};
+export const createInnerTRPCContext = (opts: CreateContextOptions) => {
+  return {
+    headers: opts.headers,
+  };
 };
 
 /**
@@ -42,8 +48,12 @@ const createInnerTRPCContext = (_opts: CreateContextOptions) => {
  *
  * @see https://trpc.io/docs/context
  */
-export const createTRPCContext = (_opts: CreateNextContextOptions) => {
-  return createInnerTRPCContext({});
+export const createTRPCContext = (opts: FetchCreateContextFnOptions) => {
+  // Fetch stuff that depends on the request
+
+  return createInnerTRPCContext({
+    headers: opts.req.headers,
+  });
 };
 
 /**
@@ -65,6 +75,19 @@ const t = initTRPC.context<typeof createTRPCContext>().create({
           error.cause instanceof ZodError ? error.cause.flatten() : null,
       },
     };
+  },
+});
+
+/**
+ * Helper to create validated server actions from trpc procedures, or build inline actions using the
+ * reusable procedure builders.
+ */
+export const createAction = experimental_createServerActionHandler(t, {
+  createContext() {
+    const ctx = createInnerTRPCContext({
+      headers: headers(),
+    });
+    return ctx;
   },
 });
 
