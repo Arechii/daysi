@@ -1,13 +1,8 @@
 import Link from "next/link";
-import { createPost } from "~/app/actions";
-import { Button } from "~/components/button";
-import { api } from "~/trpc/server";
 
 export const runtime = "edge";
 
-export default async function Home() {
-  const hello = await api.post.hello.query();
-
+export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
       <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
@@ -38,22 +33,7 @@ export default async function Home() {
             </div>
           </Link>
         </div>
-        <div className="flex flex-col items-center gap-2">
-          <p className="text-2xl text-white">
-            {hello?.text ?? "Loading tRPC query..."}
-          </p>
-        </div>
       </div>
-
-      <form action={createPost} className="flex flex-col gap-2">
-        <input
-          type="text"
-          name="text"
-          placeholder="Title"
-          className="w-full rounded bg-primary p-2 text-background"
-        />
-        <Button type="submit">Submit</Button>
-      </form>
     </main>
   );
 }
