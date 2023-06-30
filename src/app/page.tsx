@@ -1,5 +1,7 @@
 import { currentUser, SignInButton, SignOutButton } from "@clerk/nextjs";
+import { LogInIcon, LogOutIcon } from "lucide-react";
 import TypeAnim from "~/components/type-anim";
+import { Button } from "~/components/ui/button";
 
 export const runtime = "edge";
 
@@ -14,7 +16,19 @@ export default async function Home() {
         <h2 className="text-3xl tracking-wide">
           Remember the last time you <br /> <TypeAnim />
         </h2>
-        {user ? <SignOutButton /> : <SignInButton />}
+        {user ? (
+          <SignOutButton>
+            <Button variant="outline">
+              <LogOutIcon className="mr-2 h-4 w-4" /> Sign out
+            </Button>
+          </SignOutButton>
+        ) : (
+          <SignInButton>
+            <Button variant="outline">
+              <LogInIcon className="mr-2 h-4 w-4" /> Sign up
+            </Button>
+          </SignInButton>
+        )}
       </div>
     </main>
   );
