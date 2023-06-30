@@ -13,6 +13,7 @@ export const metadata = {
   title: "Daysi",
   description: "Track the days since certain events.",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
+  themeColor: "#fb7185",
   openGraph: {
     images: ["/icon.png"],
   },
