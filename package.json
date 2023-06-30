@@ -10,6 +10,7 @@
     "db:push": "drizzle-kit push:mysql"
   },
   "dependencies": {
+    "@clerk/nextjs": "4.21.13",
     "@planetscale/database": "1.8.0",
     "@t3-oss/env-nextjs": "0.6.0",
     "@tanstack/react-query": "4.29.19",
