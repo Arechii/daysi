@@ -1,7 +1,8 @@
-import { ClerkProvider } from "@clerk/nextjs";
+import { ClerkProvider, currentUser } from "@clerk/nextjs";
 import { Analytics } from "@vercel/analytics/react";
 import { Inter } from "next/font/google";
 import { twMerge } from "tailwind-merge";
+import Navbar from "~/components/navbar";
 import "~/styles/globals.css";
 
 const inter = Inter({
@@ -24,20 +25,18 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const user = await currentUser();
+
   return (
     <ClerkProvider>
       <html lang="en">
-        <body
-          className={twMerge(
-            "bg-background text-foreground font-sans",
-            inter.variable
-          )}
-        >
+        <body className={twMerge("font-sans", inter.variable)}>
+          <Navbar user={user} />
           {children}
           <Analytics />
         </body>
