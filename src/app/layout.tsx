@@ -14,6 +14,11 @@ export const metadata = {
   description: "Track the days since certain events.",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
   themeColor: "#fb7185",
+  metadataBase: new URL(
+    process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : `http://localhost:${process.env.PORT || 3000}`
+  ),
   openGraph: {
     images: ["/icon.png"],
   },
