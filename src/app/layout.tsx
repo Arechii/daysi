@@ -12,6 +12,9 @@ export const metadata = {
   title: "Daysi",
   description: "Track the days since certain events.",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
+  openGraph: {
+    images: ["/icon.png"],
+  },
 };
 
 export default function RootLayout({
