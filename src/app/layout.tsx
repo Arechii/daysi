@@ -3,6 +3,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { Inter } from "next/font/google";
 import { twMerge } from "tailwind-merge";
 import Navbar from "~/components/navbar";
+import { ThemeProvider } from "~/components/theme-provider";
 import "~/styles/globals.css";
 
 const inter = Inter({
@@ -36,9 +37,11 @@ export default async function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={twMerge("font-sans", inter.variable)}>
-          <Navbar user={user} />
-          {children}
-          <Analytics />
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <Navbar user={user} />
+            {children}
+            <Analytics />
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>
