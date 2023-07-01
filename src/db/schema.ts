@@ -2,15 +2,24 @@
 // https://orm.drizzle.team/docs/sql-schema-declaration
 
 import { type InferModel } from "drizzle-orm"
-import { mysqlTable, varchar } from "drizzle-orm/mysql-core"
+import { index, mysqlTable, timestamp, varchar } from "drizzle-orm/mysql-core"
 import { createInsertSchema, createSelectSchema } from "drizzle-zod"
 
-export const posts = mysqlTable("posts", {
-  id: varchar("id", { length: 10 }).primaryKey(),
-  text: varchar("text", { length: 255 }),
-})
+export const events = mysqlTable(
+  "events",
+  {
+    id: varchar("id", { length: 10 }).primaryKey(),
+    userId: varchar("userId", { length: 32 }).notNull(),
+    description: varchar("description", { length: 64 }).notNull(),
+    createdAt: timestamp("createdAt").defaultNow(),
+    updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow(),
+  },
+  (events) => ({
+    userIdIndex: index("userid_idx").on(events.userId),
+  })
+)
 
-export type Post = InferModel<typeof posts>
+export type Event = InferModel<typeof events>
 
-export const selectPostSchema = createSelectSchema(posts)
-export const insertPostSchema = createInsertSchema(posts).pick({ text: true })
+export const selectEventSchema = createSelectSchema(events)
+export const insertEventSchema = createInsertSchema(events)
