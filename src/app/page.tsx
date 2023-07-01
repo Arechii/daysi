@@ -7,13 +7,10 @@ export const runtime = "edge";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center">
+    <main className="flex h-full flex-col items-center justify-center">
       <div className="container flex flex-col items-center justify-center gap-8 px-4 py-16 ">
-        <h1 className=" text-5xl font-extrabold tracking-tight text-rose-400 sm:text-[5rem]">
-          Daysi
-        </h1>
-        <h2 className="text-3xl tracking-wide">
-          Remember the last time you <br /> <TypeAnim />
+        <h2 className="w-full text-center text-xl tracking-wide md:text-3xl">
+          Remember the days since you <br /> <TypeAnim />
         </h2>
         <SignInButton>
           <Button variant="outline">

@@ -34,8 +34,13 @@ export default async function RootLayout({
   const user = await currentUser();
 
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={twMerge("font-sans", inter.variable)}>
+    <html lang="en">
+      <body
+        className={twMerge(
+          "flex h-screen flex-col gap-2 font-sans",
+          inter.variable
+        )}
+      >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <ClerkProvider>
             <Navbar
