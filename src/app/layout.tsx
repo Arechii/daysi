@@ -34,16 +34,19 @@ export default async function RootLayout({
   const user = await currentUser();
 
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body className={twMerge("font-sans", inter.variable)}>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <Navbar user={user} />
+    <html lang="en" suppressHydrationWarning>
+      <body className={twMerge("font-sans", inter.variable)}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <ClerkProvider>
+            <Navbar
+              username={user?.username}
+              profileImageUrl={user?.profileImageUrl}
+            />
             {children}
             <Analytics />
-          </ThemeProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+          </ClerkProvider>
+        </ThemeProvider>
+      </body>
+    </html>
   );
 }
