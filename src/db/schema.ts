@@ -11,7 +11,7 @@ export const events = mysqlTable(
     id: varchar("id", { length: 10 }).primaryKey(),
     userId: varchar("userId", { length: 32 }).notNull(),
     description: varchar("description", { length: 64 }).notNull(),
-    resetAt: timestamp("resetAt").defaultNow(),
+    resetAt: timestamp("resetAt").defaultNow().notNull(),
     createdAt: timestamp("createdAt").defaultNow(),
     updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow(),
   },

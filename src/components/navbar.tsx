@@ -15,7 +15,7 @@ const Navbar = ({
     <div className="flex w-screen justify-between p-4">
       <Link href="/">
         <h1 className="text-2xl font-extrabold tracking-tight text-rose-400">
-          Daysi
+          daysi
         </h1>
       </Link>
       <div className="flex flex-row-reverse gap-2">
