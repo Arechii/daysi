@@ -3,8 +3,6 @@ import { LogInIcon } from "lucide-react";
 import TypeAnim from "~/components/type-anim";
 import { Button } from "~/components/ui/button";
 
-export const runtime = "edge";
-
 export default function Home() {
   return (
     <main className="flex h-full flex-col items-center justify-center">

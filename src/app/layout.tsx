@@ -14,16 +14,10 @@ const inter = Inter({
 export const metadata = {
   title: "Daysi",
   description: "Track the days since certain events.",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
-  themeColor: "#fb7185",
-  metadataBase: new URL(
-    process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : `http://localhost:${process.env.PORT || 3000}`
-  ),
-  openGraph: {
-    images: ["/icon.png"],
-  },
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
+  ],
 };
 
 export default async function RootLayout({
