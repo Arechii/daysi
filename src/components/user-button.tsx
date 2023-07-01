@@ -1,10 +1,11 @@
-"use client";
+"use client"
 
-import { useAuth } from "@clerk/nextjs";
-import { type User } from "@clerk/nextjs/dist/types/server";
-import { LogOutIcon } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Button } from "./ui/button";
+import { useAuth } from "@clerk/nextjs"
+import { type User } from "@clerk/nextjs/dist/types/server"
+import { LogOutIcon } from "lucide-react"
+
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
+import { Button } from "./ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,13 +13,13 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
+} from "./ui/dropdown-menu"
 
 const UserButton = ({
   username,
   profileImageUrl,
 }: Pick<User, "username" | "profileImageUrl">) => {
-  const { signOut } = useAuth();
+  const { signOut } = useAuth()
 
   return (
     <DropdownMenu>
@@ -39,7 +40,7 @@ const UserButton = ({
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  );
-};
+  )
+}
 
-export default UserButton;
+export default UserButton

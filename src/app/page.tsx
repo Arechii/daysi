@@ -1,9 +1,10 @@
-import { SignInButton } from "@clerk/nextjs";
-import { LogInIcon } from "lucide-react";
-import TypeAnim from "~/components/type-anim";
-import { Button } from "~/components/ui/button";
+import { SignInButton } from "@clerk/nextjs"
+import { LogInIcon } from "lucide-react"
 
-export const runtime = "edge";
+import { Button } from "~/components/ui/button"
+import TypeAnim from "~/components/type-anim"
+
+export const runtime = "edge"
 
 export default function Home() {
   return (
@@ -19,5 +20,5 @@ export default function Home() {
         </SignInButton>
       </div>
     </main>
-  );
+  )
 }

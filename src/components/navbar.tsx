@@ -1,10 +1,11 @@
-import { SignInButton } from "@clerk/nextjs";
-import { type User } from "@clerk/nextjs/dist/types/server";
-import { LogInIcon } from "lucide-react";
-import Link from "next/link";
-import ThemeToggle from "./theme-toggle";
-import { Button } from "./ui/button";
-import UserButton from "./user-button";
+import Link from "next/link"
+import { SignInButton } from "@clerk/nextjs"
+import { type User } from "@clerk/nextjs/dist/types/server"
+import { LogInIcon } from "lucide-react"
+
+import ThemeToggle from "./theme-toggle"
+import { Button } from "./ui/button"
+import UserButton from "./user-button"
 
 const Navbar = ({
   username,
@@ -33,7 +34,7 @@ const Navbar = ({
         <ThemeToggle />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

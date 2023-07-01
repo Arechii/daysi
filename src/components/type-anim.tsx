@@ -1,6 +1,6 @@
-"use client";
+"use client"
 
-import { TypeAnimation } from "react-type-animation";
+import { TypeAnimation } from "react-type-animation"
 
 const TypeAnim = () => {
   return (
@@ -19,7 +19,7 @@ const TypeAnim = () => {
       cursor={false}
       repeat={Infinity}
     />
-  );
-};
+  )
+}
 
-export default TypeAnim;
+export default TypeAnim

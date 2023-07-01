@@ -1,15 +1,17 @@
-import { ClerkProvider, currentUser } from "@clerk/nextjs";
-import { Analytics } from "@vercel/analytics/react";
-import { Inter } from "next/font/google";
-import { twMerge } from "tailwind-merge";
-import Navbar from "~/components/navbar";
-import { ThemeProvider } from "~/components/theme-provider";
-import "~/styles/globals.css";
+import { Inter } from "next/font/google"
+import { ClerkProvider, currentUser } from "@clerk/nextjs"
+import { Analytics } from "@vercel/analytics/react"
+import { twMerge } from "tailwind-merge"
+
+import Navbar from "~/components/navbar"
+import { ThemeProvider } from "~/components/theme-provider"
+
+import "~/styles/globals.css"
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
-});
+})
 
 export const metadata = {
   title: "Daysi",
@@ -18,14 +20,14 @@ export const metadata = {
     { media: "(prefers-color-scheme: light)", color: "white" },
     { media: "(prefers-color-scheme: dark)", color: "black" },
   ],
-};
+}
 
 export default async function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
-  const user = await currentUser();
+  const user = await currentUser()
 
   return (
     <html lang="en">
@@ -47,5 +49,5 @@ export default async function RootLayout({
         </ThemeProvider>
       </body>
     </html>
-  );
+  )
 }
