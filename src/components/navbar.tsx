@@ -25,7 +25,7 @@ const Navbar = ({
             profileImageUrl={profileImageUrl ?? ""}
           />
         ) : (
-          <SignInButton>
+          <SignInButton afterSignInUrl="/dashboard" afterSignUpUrl="/dashboard">
             <Button variant="outline" size="icon">
               <LogInIcon className="h-6 w-6" />
             </Button>

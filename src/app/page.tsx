@@ -13,7 +13,7 @@ export default function Home() {
         <h2 className="w-full text-center text-xl tracking-wide md:text-3xl">
           Remember the days since you <br /> <TypeAnim />
         </h2>
-        <SignInButton>
+        <SignInButton afterSignInUrl="/dashboard" afterSignUpUrl="/dashboard">
           <Button variant="outline">
             <LogInIcon className="mr-2 h-4 w-4" /> Sign up
           </Button>
