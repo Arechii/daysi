@@ -1,5 +1,3 @@
-"use client";
-
 import { SignInButton } from "@clerk/nextjs";
 import { type User } from "@clerk/nextjs/dist/types/server";
 import { LogInIcon } from "lucide-react";

@@ -19,6 +19,7 @@ const UserButton = ({
   profileImageUrl,
 }: Pick<User, "username" | "profileImageUrl">) => {
   const { signOut } = useAuth();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
