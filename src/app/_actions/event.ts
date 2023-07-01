@@ -5,7 +5,7 @@ import { currentUser } from "@clerk/nextjs"
 import { db } from "~/db"
 import { events } from "~/db/schema"
 import { createId } from "~/utils"
-import { eq } from "drizzle-orm"
+import { desc, eq } from "drizzle-orm"
 
 export async function getEventsAction() {
   const user = await currentUser()
@@ -14,6 +14,7 @@ export async function getEventsAction() {
 
   const userEvents = await db.query.events.findMany({
     where: eq(events.userId, user.id),
+    orderBy: desc(events.resetAt),
   })
 
   return userEvents
