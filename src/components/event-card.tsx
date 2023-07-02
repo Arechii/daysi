@@ -25,15 +25,19 @@ const EventCard = ({ description, resetAt, createdAt }: Event) => {
 
   return (
     <Card>
-      <CardContent className="flex flex-row items-center gap-8 pt-6">
-        <p className="text-4xl font-bold text-rose-400">{data.daysSince}</p>
-        <div className="flex flex-col">
-          <p className="text-xl">{description}</p>
+      <CardContent className="flex items-center gap-4 pt-6 md:gap-8">
+        <p className="w-12 text-center text-2xl font-bold text-rose-400 md:w-20 md:text-3xl lg:text-4xl">
+          {data.daysSince}
+        </p>
+        <div className="flex w-3/4 flex-col">
+          <p className="break-all text-sm md:text-base lg:text-lg">
+            {description}
+          </p>
           <p className="text-sm text-gray-500 dark:text-gray-400">
             started on {data.startedOn}
           </p>
         </div>
-        <div className="ml-auto flex gap-2">
+        <div className="ml-auto flex flex-col gap-2 md:flex-row">
           <Button variant="outline" size="icon">
             <TimerResetIcon />
           </Button>
