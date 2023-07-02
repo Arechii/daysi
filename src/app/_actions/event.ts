@@ -48,3 +48,15 @@ export async function resetEventAction(id: string) {
 
   revalidatePath("/dashboard")
 }
+
+export async function deleteEventAction(id: string) {
+  const user = await currentUser()
+
+  if (!user) return
+
+  await db
+    .delete(events)
+    .where(and(eq(events.id, id), eq(events.userId, user.id)))
+
+  revalidatePath("/dashboard")
+}

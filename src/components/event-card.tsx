@@ -4,7 +4,7 @@ import { useEffect, useState, useTransition } from "react"
 import { type Event } from "~/db/schema"
 import { TimerResetIcon, Trash2Icon } from "lucide-react"
 
-import { resetEventAction } from "~/app/_actions/event"
+import { deleteEventAction, resetEventAction } from "~/app/_actions/event"
 
 import { Button } from "./ui/button"
 import { Card, CardContent } from "./ui/card"
@@ -49,7 +49,12 @@ const EventCard = ({ id, description, resetAt, createdAt }: Event) => {
           >
             <TimerResetIcon />
           </Button>
-          <Button variant="destructive" size="icon">
+          <Button
+            variant="destructive"
+            size="icon"
+            disabled={isPending}
+            onClick={() => startTransition(() => deleteEventAction(id))}
+          >
             <Trash2Icon />
           </Button>
         </div>
