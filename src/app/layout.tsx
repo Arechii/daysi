@@ -3,6 +3,7 @@ import { ClerkProvider, currentUser } from "@clerk/nextjs"
 import { Analytics } from "@vercel/analytics/react"
 import { twMerge } from "tailwind-merge"
 
+import { Toaster } from "~/components/ui/toaster"
 import Navbar from "~/components/navbar"
 import { ThemeProvider } from "~/components/theme-provider"
 
@@ -44,6 +45,7 @@ export default async function RootLayout({
               profileImageUrl={user?.profileImageUrl}
             />
             {children}
+            <Toaster />
             <Analytics />
           </ClerkProvider>
         </ThemeProvider>

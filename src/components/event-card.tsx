@@ -8,11 +8,27 @@ import { deleteEventAction, resetEventAction } from "~/app/_actions/event"
 
 import { Button } from "./ui/button"
 import { Card, CardContent } from "./ui/card"
+import { toast } from "./ui/use-toast"
 
 const EventCard = ({ id, description, resetAt, createdAt }: Event) => {
   const [isPending, startTransition] = useTransition()
   // workaround for hydration issue between server & client locale
   const [data, setData] = useState({ startedOn: "", daysSince: 0 })
+
+  const reset = () => {
+    startTransition(() => resetEventAction(id))
+    toast({
+      description: "Your event has been reset.",
+    })
+  }
+
+  const remove = () => {
+    startTransition(() => deleteEventAction(id))
+    toast({
+      description: "Your event has been deleted.",
+      variant: "destructive",
+    })
+  }
 
   useEffect(
     () =>
@@ -45,7 +61,7 @@ const EventCard = ({ id, description, resetAt, createdAt }: Event) => {
             variant="outline"
             size="icon"
             disabled={isPending}
-            onClick={() => startTransition(() => resetEventAction(id))}
+            onClick={() => reset()}
           >
             <TimerResetIcon />
           </Button>
@@ -53,7 +69,7 @@ const EventCard = ({ id, description, resetAt, createdAt }: Event) => {
             variant="destructive"
             size="icon"
             disabled={isPending}
-            onClick={() => startTransition(() => deleteEventAction(id))}
+            onClick={() => remove()}
           >
             <Trash2Icon />
           </Button>
