@@ -5,7 +5,7 @@ import { currentUser } from "@clerk/nextjs"
 import { db } from "~/db"
 import { events } from "~/db/schema"
 import { createId } from "~/utils"
-import { desc, eq } from "drizzle-orm"
+import { and, desc, eq } from "drizzle-orm"
 
 export async function getEventsAction() {
   const user = await currentUser()
@@ -30,6 +30,21 @@ export async function createEventAction(description: string) {
     userId: user.id,
     description,
   })
+
+  revalidatePath("/dashboard")
+}
+
+export async function resetEventAction(id: string) {
+  const user = await currentUser()
+
+  if (!user) return
+
+  await db
+    .update(events)
+    .set({
+      resetAt: new Date(),
+    })
+    .where(and(eq(events.id, id), eq(events.userId, user.id)))
 
   revalidatePath("/dashboard")
 }

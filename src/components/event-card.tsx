@@ -1,13 +1,16 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useTransition } from "react"
 import { type Event } from "~/db/schema"
 import { TimerResetIcon, Trash2Icon } from "lucide-react"
+
+import { resetEventAction } from "~/app/_actions/event"
 
 import { Button } from "./ui/button"
 import { Card, CardContent } from "./ui/card"
 
-const EventCard = ({ description, resetAt, createdAt }: Event) => {
+const EventCard = ({ id, description, resetAt, createdAt }: Event) => {
+  const [isPending, startTransition] = useTransition()
   // workaround for hydration issue between server & client locale
   const [data, setData] = useState({ startedOn: "", daysSince: 0 })
 
@@ -38,7 +41,12 @@ const EventCard = ({ description, resetAt, createdAt }: Event) => {
           </p>
         </div>
         <div className="ml-auto flex flex-col gap-2 md:flex-row">
-          <Button variant="outline" size="icon">
+          <Button
+            variant="outline"
+            size="icon"
+            disabled={isPending}
+            onClick={() => startTransition(() => resetEventAction(id))}
+          >
             <TimerResetIcon />
           </Button>
           <Button variant="destructive" size="icon">
