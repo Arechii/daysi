@@ -26,13 +26,13 @@ const CreateEvent = () => {
     <Card>
       <CardContent className="flex flex-row items-center gap-8 pt-6">
         <p className="text-4xl font-bold text-rose-400">0</p>
-        <div className="flex w-full flex-col gap-2">
+        <div className="flex w-2/3 flex-col gap-2">
           <Input
             className="h-7"
             type="text"
             placeholder="description"
             minLength={3}
-            maxLength={64}
+            maxLength={128}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             onKeyDown={(e) => {
