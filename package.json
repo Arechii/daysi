@@ -11,7 +11,7 @@
     "studio": "drizzle-kit studio"
   },
   "dependencies": {
-    "@clerk/nextjs": "4.21.13",
+    "@clerk/nextjs": "4.21.14",
     "@clerk/themes": "1.7.5",
     "@planetscale/database": "1.8.0",
     "@radix-ui/react-avatar": "1.0.3",
