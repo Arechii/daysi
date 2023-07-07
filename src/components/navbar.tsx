@@ -12,7 +12,7 @@ const Navbar = ({
   profileImageUrl,
 }: Partial<Pick<User, "username" | "profileImageUrl">>) => {
   return (
-    <div className="sticky left-0 top-0 flex w-screen justify-between bg-white p-4 dark:bg-black">
+    <div className="sticky left-0 top-0 flex w-screen justify-between p-4">
       <Link href="/">
         <h1 className="text-2xl font-extrabold tracking-tight text-rose-400">
           daysi
