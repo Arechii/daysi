@@ -1,9 +1,13 @@
-// Example model schema from the Drizzle docs
-// https://orm.drizzle.team/docs/sql-schema-declaration
-
 import { type InferModel } from "drizzle-orm"
-import { index, mysqlTable, timestamp, varchar } from "drizzle-orm/mysql-core"
+import {
+  index,
+  mysqlTableCreator,
+  timestamp,
+  varchar,
+} from "drizzle-orm/mysql-core"
 import { createInsertSchema, createSelectSchema } from "drizzle-zod"
+
+const mysqlTable = mysqlTableCreator((name) => `daysi_${name}`)
 
 export const events = mysqlTable(
   "events",
