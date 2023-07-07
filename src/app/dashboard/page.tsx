@@ -1,5 +1,5 @@
 import CreateEvent from "~/components/create-event"
-import EventCard from "~/components/event-card"
+import Events from "~/components/events"
 
 import { getEventsAction } from "../_actions/event"
 
@@ -15,9 +15,7 @@ export default async function Dashboard() {
       </h1>
       <div className="flex flex-col gap-4 p-2">
         <CreateEvent />
-        {events.map((e, i) => (
-          <EventCard key={i} {...e} />
-        ))}
+        <Events events={events} />
       </div>
     </div>
   )
