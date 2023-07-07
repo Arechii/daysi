@@ -31,25 +31,25 @@ export default async function RootLayout({
   const user = await currentUser()
 
   return (
-    <html lang="en">
-      <body
-        className={twMerge(
-          "flex h-screen flex-col gap-2 font-sans",
-          inter.variable
-        )}
-      >
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <ClerkProvider>
+    <ClerkProvider>
+      <html lang="en" suppressHydrationWarning>
+        <body
+          className={twMerge(
+            "flex h-screen flex-col gap-2 font-sans",
+            inter.variable
+          )}
+        >
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <Navbar
               username={user?.username}
               profileImageUrl={user?.profileImageUrl}
             />
             {children}
             <Toaster />
-            <Analytics />
-          </ClerkProvider>
-        </ThemeProvider>
-      </body>
-    </html>
+          </ThemeProvider>
+          <Analytics />
+        </body>
+      </html>
+    </ClerkProvider>
   )
 }
