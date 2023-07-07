@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { currentUser, SignInButton } from "@clerk/nextjs"
+import { auth, SignInButton } from "@clerk/nextjs"
 import { LayoutDashboardIcon, LogInIcon } from "lucide-react"
 
 import { Button } from "~/components/ui/button"
@@ -7,8 +7,8 @@ import TypeAnim from "~/components/type-anim"
 
 export const runtime = "edge"
 
-export default async function Home() {
-  const user = await currentUser()
+export default function Home() {
+  const { userId } = auth()
 
   return (
     <main className="flex h-full flex-col items-center justify-center">
@@ -16,7 +16,7 @@ export default async function Home() {
         <h2 className="w-full text-center text-xl tracking-wide md:text-3xl">
           Remember the days since you <br /> <TypeAnim />
         </h2>
-        {!user ? (
+        {!userId ? (
           <SignInButton afterSignInUrl="/dashboard" afterSignUpUrl="/dashboard">
             <Button variant="outline">
               <LogInIcon className="mr-2 h-4 w-4" /> Sign up
