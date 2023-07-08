@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google"
 import { ClerkProvider, currentUser } from "@clerk/nextjs"
 import { Analytics } from "@vercel/analytics/react"
+import { env } from "~/env.mjs"
 import { twMerge } from "tailwind-merge"
 
 import { Toaster } from "~/components/ui/toaster"
@@ -17,10 +18,8 @@ const inter = Inter({
 export const metadata = {
   title: "Daysi",
   description: "Track the days since certain events.",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
+  themeColor: "#fb7185",
+  metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
 }
 
 export default async function RootLayout({

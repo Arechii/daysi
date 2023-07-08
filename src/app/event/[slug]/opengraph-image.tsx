@@ -5,6 +5,10 @@ import { eq } from "drizzle-orm"
 
 export const runtime = "edge"
 export const contentType = "image/png"
+export const size = {
+  width: 1200,
+  height: 630,
+}
 
 export default async function Image({ params }: { params: { slug: string } }) {
   const event = await db.query.events.findFirst({
@@ -13,9 +17,14 @@ export default async function Image({ params }: { params: { slug: string } }) {
 
   return new ImageResponse(
     (
-      <div className="flex h-full w-full items-center justify-center text-5xl">
+      <div tw="flex h-full w-full items-center justify-center text-5xl gap-4">
+        🌺
         {event?.description}
       </div>
-    )
+    ),
+    {
+      ...size,
+      emoji: "twemoji",
+    }
   )
 }
