@@ -32,16 +32,16 @@ export default async function Image({ params }: { params: { slug: string } }) {
     (
       <div tw="flex h-full w-full">
         <div tw="flex h-full w-full flex-col items-center justify-around rounded-xl border-2 border-rose-400 bg-white">
-          <div tw="flex w-full items-center justify-center font-extrabold tracking-wide">
-            <div tw="flex mr-4 text-6xl text-rose-400">{daysSince}</div>
-            <div tw="flex text-6xl text-zinc-700">days since</div>
+          <div tw="flex w-full items-center justify-center text-6xl font-extrabold tracking-wide">
+            <div tw="mr-4 flex text-rose-400">{daysSince}</div>
+            <div tw="flex text-zinc-700">days since</div>
           </div>
           <div tw="flex text-center text-6xl tracking-wide text-rose-400">
             {event?.description}
           </div>
           <div tw="flex items-center">
             <img
-              tw="flex mr-4 h-14 w-14 rounded-full"
+              tw="mr-4 flex h-14 w-14 rounded-full"
               src={user.profileImageUrl}
               alt={user.username ?? ""}
             />
