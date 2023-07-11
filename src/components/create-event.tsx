@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, useTransition } from "react"
+import { useState, useTransition } from "react"
 import { PlusIcon } from "lucide-react"
 
 import { createEventAction } from "~/app/_actions/event"
@@ -12,10 +12,6 @@ import { Input } from "./ui/input"
 const CreateEvent = () => {
   const [isPending, startTransition] = useTransition()
   const [description, setDescription] = useState("")
-  // workaround for hydration issue between server & client locale
-  const [startedOn, setStartedOn] = useState("")
-
-  useEffect(() => setStartedOn(new Date().toLocaleDateString()), [])
 
   const create = () => {
     startTransition(() => createEventAction(description))
@@ -45,7 +41,7 @@ const CreateEvent = () => {
             }}
           />
           <p className="text-sm text-gray-500 dark:text-gray-400">
-            started on {startedOn}
+            started on {new Date().toLocaleDateString()}
           </p>
         </div>
         <div className="ml-auto flex flex-col gap-2 md:flex-row">
