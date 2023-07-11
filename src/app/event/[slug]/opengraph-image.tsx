@@ -37,7 +37,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
             <div tw="flex text-zinc-700">days since</div>
           </div>
           <div tw="flex text-center text-6xl tracking-wide text-rose-400">
-            {event?.description}
+            {event.description}
           </div>
           <div tw="flex items-center">
             <img
