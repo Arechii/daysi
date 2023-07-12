@@ -116,8 +116,8 @@ devDependencies:
     specifier: 16.3.1
     version: 16.3.1
   drizzle-kit:
-    specifier: 0.19.4
-    version: 0.19.4
+    specifier: 0.19.5
+    version: 0.19.5
   eslint:
     specifier: 8.44.0
     version: 8.44.0
@@ -2634,8 +2634,8 @@ packages:
       wordwrap: 1.0.0
     dev: true
 
-  /drizzle-kit@0.19.4:
-    resolution: {integrity: sha512-mbWdaGcYGLGM+HLGhLv5gH3h4ZMD+dil6T2fS36IAt72XmCn3snw1mVxGVHJPDzSKIzz3W7vABe4PbIpRqLM2A==}
+  /drizzle-kit@0.19.5:
+    resolution: {integrity: sha512-eX+M4QpPLbbZwLUamCxRhS9Y98ppZLk3jew2FghKoAr7bGEC3omFIm+YPiwtrhe/alZZgrJCn/1TDTRHwo1r9w==}
     hasBin: true
     dependencies:
       '@drizzle-team/studio': 0.0.1
