@@ -27,7 +27,7 @@
     "clsx": "1.2.1",
     "drizzle-orm": "0.27.2",
     "drizzle-zod": "0.4.4",
-    "lucide-react": "0.259.0",
+    "lucide-react": "0.260.0",
     "nanoid": "4.0.2",
     "next": "13.4.9",
     "next-themes": "0.2.1",
