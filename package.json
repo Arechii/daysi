@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "@clerk/nextjs": "4.21.15",
-    "@clerk/themes": "1.7.5",
     "@formkit/auto-animate": "0.7.0",
     "@planetscale/database": "1.8.0",
     "@radix-ui/react-avatar": "1.0.3",
