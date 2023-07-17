@@ -8,6 +8,15 @@ import { deleteEventAction, resetEventAction } from "~/app/_actions/event"
 
 import { Button } from "./ui/button"
 import { Card, CardContent } from "./ui/card"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog"
 import { toast } from "./ui/use-toast"
 
 const EventCard = ({ id, description, startedAt, resetAt }: Event) => {
@@ -23,14 +32,6 @@ const EventCard = ({ id, description, startedAt, resetAt }: Event) => {
       toast({
         description: "Your event has been reset.",
       })
-    })
-  }
-
-  const remove = () => {
-    startTransition(() => deleteEventAction(id))
-    toast({
-      description: "Your event has been deleted.",
-      variant: "destructive",
     })
   }
 
@@ -63,17 +64,51 @@ const EventCard = ({ id, description, startedAt, resetAt }: Event) => {
           >
             <TimerResetIcon />
           </Button>
-          <Button
-            variant="destructive"
-            size="icon"
-            disabled={isPending}
-            onClick={() => remove()}
-          >
-            <Trash2Icon />
-          </Button>
+          <DeleteEvent id={id} />
         </div>
       </CardContent>
     </Card>
+  )
+}
+
+const DeleteEvent = ({ id }: { id: string }) => {
+  const [isPending, startTransition] = useTransition()
+
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="destructive" size="icon">
+          <Trash2Icon />
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Are you sure?</DialogTitle>
+          <DialogDescription>
+            This action cannot be undone. Are you sure you want to permanently
+            delete this event?
+          </DialogDescription>
+        </DialogHeader>
+        <DialogFooter>
+          <Button
+            type="submit"
+            variant="destructive"
+            disabled={isPending}
+            onClick={() => {
+              startTransition(async () => {
+                await deleteEventAction(id)
+                toast({
+                  description: "Your event has been deleted.",
+                  variant: "destructive",
+                })
+              })
+            }}
+          >
+            Delete
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   )
 }
 
