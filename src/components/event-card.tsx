@@ -35,14 +35,20 @@ const EventCard = ({ id, description, resetAt, createdAt }: Event) => {
   return (
     <Card>
       <CardContent className="flex items-center gap-4 pt-6 md:gap-8">
-        <p className="w-12 text-center text-2xl font-bold text-rose-400 md:w-20 md:text-3xl lg:text-4xl">
+        <p
+          className="w-12 text-center text-2xl font-bold text-rose-400 md:w-20 md:text-3xl lg:text-4xl"
+          suppressHydrationWarning
+        >
           {daysSince}
         </p>
         <div className="flex w-3/4 flex-col">
           <p className="break-all text-sm md:text-base lg:text-lg">
             {description}
           </p>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          <p
+            className="text-sm text-gray-500 dark:text-gray-400"
+            suppressHydrationWarning
+          >
             started on {createdAt?.toLocaleDateString() ?? ""}
           </p>
         </div>

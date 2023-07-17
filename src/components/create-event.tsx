@@ -40,7 +40,10 @@ const CreateEvent = () => {
               }
             }}
           />
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          <p
+            className="text-sm text-gray-500 dark:text-gray-400"
+            suppressHydrationWarning
+          >
             started on {new Date().toLocaleDateString()}
           </p>
         </div>

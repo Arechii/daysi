@@ -35,7 +35,7 @@ export default async function RootLayout({
         <body
           className={twMerge(
             "flex h-screen flex-col gap-2 font-sans",
-            inter.variable
+            inter.variable,
           )}
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
