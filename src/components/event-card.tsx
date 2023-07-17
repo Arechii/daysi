@@ -3,7 +3,7 @@
 import { useTransition } from "react"
 import Link from "next/link"
 import { type Event } from "~/db/schema"
-import { TimerResetIcon, Trash2Icon } from "lucide-react"
+import { TimerReset, Trash2 } from "lucide-react"
 
 import { deleteEvent, resetEvent } from "~/app/_actions/event"
 
@@ -66,7 +66,7 @@ const EventCard = ({ id, description, startedAt, resetAt }: Event) => {
             disabled={isPending}
             onClick={() => reset()}
           >
-            <TimerResetIcon />
+            <TimerReset />
           </Button>
           <DeleteEvent id={id} />
         </div>
@@ -82,7 +82,7 @@ const DeleteEvent = ({ id }: { id: string }) => {
     <Dialog>
       <DialogTrigger asChild>
         <Button variant="destructive" size="icon">
-          <Trash2Icon />
+          <Trash2 />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
