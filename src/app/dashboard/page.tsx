@@ -12,11 +12,13 @@ export default async function Dashboard() {
 
   return (
     <div className="container -mt-16 flex h-full flex-col gap-8 px-4 py-16">
-      <h1 className="flex items-center gap-1 text-xl font-semibold underline decoration-rose-400">
-        <CalendarHeartIcon /> Events
-      </h1>
-      <div className="flex flex-col gap-4 p-2">
+      <h1 className="flex items-center justify-between">
+        <div className="flex gap-1 text-xl font-semibold underline decoration-rose-400">
+          <CalendarHeartIcon /> Events
+        </div>
         <CreateEvent />
+      </h1>
+      <div className="flex h-full flex-col gap-4 p-2">
         <Events events={events} />
       </div>
     </div>
