@@ -22,7 +22,7 @@
     "@t3-oss/env-nextjs": "0.6.0",
     "@vercel/analytics": "1.0.1",
     "class-variance-authority": "0.6.1",
-    "clsx": "1.2.1",
+    "clsx": "2.0.0",
     "drizzle-orm": "0.27.2",
     "drizzle-zod": "0.4.4",
     "lucide-react": "0.260.0",
