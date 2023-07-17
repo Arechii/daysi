@@ -14,8 +14,10 @@ const CreateEvent = () => {
   const [description, setDescription] = useState("")
 
   const create = () => {
-    startTransition(() => createEventAction(description))
-    setDescription("")
+    startTransition(async () => {
+      await createEventAction(description)
+      setDescription("")
+    })
   }
 
   return (

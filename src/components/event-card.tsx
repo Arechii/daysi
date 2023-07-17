@@ -18,9 +18,11 @@ const EventCard = ({ id, description, resetAt, createdAt }: Event) => {
   )
 
   const reset = () => {
-    startTransition(() => resetEventAction(id))
-    toast({
-      description: "Your event has been reset.",
+    startTransition(async () => {
+      await resetEventAction(id)
+      toast({
+        description: "Your event has been reset.",
+      })
     })
   }
 
