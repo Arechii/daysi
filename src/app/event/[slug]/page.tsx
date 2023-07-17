@@ -4,10 +4,14 @@ import { eq } from "drizzle-orm"
 
 export const runtime = "edge"
 
-export default async function Image({ params }: { params: { slug: string } }) {
+export default async function Event({ params }: { params: { slug: string } }) {
   const event = await db.query.events.findFirst({
     where: eq(events.id, params.slug),
   })
 
-  return <div>{event?.description}</div>
+  if (!event) {
+    return <div>Event not found</div>
+  }
+
+  return <div>{event.description}</div>
 }

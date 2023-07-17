@@ -19,13 +19,13 @@ export default async function Image({ params }: { params: { slug: string } }) {
   })
 
   if (!event) {
-    return notFound()
+    notFound()
   }
 
   const user = await clerkClient.users.getUser(event.userId)
   const daysSince = Math.floor(
     Math.abs(event.resetAt.getTime() - new Date().getTime()) /
-      (1000 * 3600 * 24)
+      (1000 * 3600 * 24),
   )
 
   return new ImageResponse(
@@ -52,6 +52,6 @@ export default async function Image({ params }: { params: { slug: string } }) {
     ),
     {
       ...size,
-    }
+    },
   )
 }
