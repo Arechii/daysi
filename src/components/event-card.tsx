@@ -1,6 +1,7 @@
 "use client"
 
 import { useTransition } from "react"
+import Link from "next/link"
 import { type Event } from "~/db/schema"
 import { TimerResetIcon, Trash2Icon } from "lucide-react"
 
@@ -45,9 +46,12 @@ const EventCard = ({ id, description, startedAt, resetAt }: Event) => {
           {daysSince}
         </p>
         <div className="flex w-3/4 flex-col">
-          <p className="break-all text-sm md:text-base lg:text-lg">
+          <Link
+            href={`/event/${id}`}
+            className="break-all text-sm md:text-base lg:text-lg"
+          >
             {description}
-          </p>
+          </Link>
           <p
             className="text-sm text-gray-500 dark:text-gray-400"
             suppressHydrationWarning
