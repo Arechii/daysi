@@ -1,66 +1,138 @@
 "use client"
 
 import { useState, useTransition } from "react"
-import { PlusIcon } from "lucide-react"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { insertEventSchema } from "~/db/schema"
+import { cn } from "~/utils"
+import { format } from "date-fns"
+import { CalendarIcon } from "lucide-react"
+import { useForm } from "react-hook-form"
+import { type z } from "zod"
 
 import { createEventAction } from "~/app/_actions/event"
 
 import { Button } from "./ui/button"
-import { Card, CardContent } from "./ui/card"
-import { Input } from "./ui/input"
+import { Calendar } from "./ui/calendar"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog"
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "./ui/form"
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover"
+import { Textarea } from "./ui/textarea"
+import { toast } from "./ui/use-toast"
 
 const CreateEvent = () => {
+  const [open, setOpen] = useState(false)
   const [isPending, startTransition] = useTransition()
-  const [description, setDescription] = useState("")
 
-  const create = () => {
+  const form = useForm<z.infer<typeof insertEventSchema>>({
+    resolver: zodResolver(
+      insertEventSchema.pick({ description: true, createdAt: true }),
+    ),
+    defaultValues: {
+      description: "",
+      createdAt: new Date(),
+    },
+  })
+
+  function onSubmit(values: z.infer<typeof insertEventSchema>) {
     startTransition(async () => {
-      await createEventAction(description)
-      setDescription("")
+      await createEventAction(values)
+      toast({
+        description: "Your event has been created.",
+      })
+      setOpen(false)
+      form.reset()
     })
   }
 
   return (
-    <Card>
-      <CardContent className="flex items-center gap-4 pt-6 md:gap-8">
-        <p className="w-12 text-center text-2xl font-bold text-rose-400 md:w-20 md:text-3xl lg:text-4xl">
-          0
-        </p>
-        <div className="flex w-3/4 flex-col gap-2">
-          <Input
-            className="h-7"
-            type="text"
-            placeholder="description"
-            minLength={3}
-            maxLength={128}
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault()
-                create()
-              }
-            }}
-          />
-          <p
-            className="text-sm text-gray-500 dark:text-gray-400"
-            suppressHydrationWarning
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button variant="outline">Create</Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Create event</DialogTitle>
+        </DialogHeader>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="flex flex-col space-y-8"
           >
-            started on {new Date().toLocaleDateString()}
-          </p>
-        </div>
-        <div className="ml-auto flex flex-col gap-2 md:flex-row">
-          <Button
-            variant="outline"
-            size="icon"
-            disabled={isPending}
-            onClick={() => create()}
-          >
-            <PlusIcon />
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <Textarea className="resize-none" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="createdAt"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel>Start date</FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant={"outline"}
+                          className={cn(
+                            "w-full pl-3 text-left font-normal",
+                            !field.value && "text-muted-foreground",
+                          )}
+                        >
+                          {field.value ? (
+                            format(field.value, "PPP")
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
+                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        // eslint-disable-next-line @typescript-eslint/non-nullable-type-assertion-style
+                        selected={field.value as Date}
+                        onSelect={field.onChange}
+                        disabled={(date) =>
+                          date > new Date() || date < new Date("1900-01-01")
+                        }
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button type="submit" className="self-end" disabled={isPending}>
+              Create
+            </Button>
+          </form>
+        </Form>
+      </DialogContent>
+    </Dialog>
   )
 }
 

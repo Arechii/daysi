@@ -10,7 +10,7 @@ import { Button } from "./ui/button"
 import { Card, CardContent } from "./ui/card"
 import { toast } from "./ui/use-toast"
 
-const EventCard = ({ id, description, resetAt, createdAt }: Event) => {
+const EventCard = ({ id, description, startedAt, resetAt }: Event) => {
   const [isPending, startTransition] = useTransition()
 
   const daysSince = Math.floor(
@@ -51,7 +51,7 @@ const EventCard = ({ id, description, resetAt, createdAt }: Event) => {
             className="text-sm text-gray-500 dark:text-gray-400"
             suppressHydrationWarning
           >
-            started on {createdAt?.toLocaleDateString() ?? ""}
+            started on {startedAt.toLocaleDateString()}
           </p>
         </div>
         <div className="ml-auto flex flex-col gap-2 md:flex-row">

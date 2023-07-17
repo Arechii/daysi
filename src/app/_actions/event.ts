@@ -3,9 +3,10 @@
 import { revalidatePath } from "next/cache"
 import { auth } from "@clerk/nextjs"
 import { db } from "~/db"
-import { events } from "~/db/schema"
+import { events, insertEventSchema } from "~/db/schema"
 import { createId } from "~/utils"
 import { and, desc, eq } from "drizzle-orm"
+import { z } from "zod"
 
 export async function getEventsAction() {
   const { userId } = auth()
@@ -14,13 +15,16 @@ export async function getEventsAction() {
 
   const userEvents = await db.query.events.findMany({
     where: eq(events.userId, userId),
-    orderBy: desc(events.resetAt),
+    orderBy: desc(events.startedAt),
   })
 
   return userEvents
 }
 
-export async function createEventAction(description: string) {
+export async function createEventAction({
+  description,
+  startedAt,
+}: z.infer<typeof insertEventSchema>) {
   const { userId } = auth()
 
   if (!userId) return
@@ -29,6 +33,7 @@ export async function createEventAction(description: string) {
     id: createId(),
     userId,
     description,
+    startedAt,
   })
 
   revalidatePath("/dashboard")
