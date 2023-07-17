@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { insertEventSchema } from "~/db/schema"
 import { cn } from "~/utils"
 import { format } from "date-fns"
-import { Calendar as CalendarIcon } from "lucide-react"
+import { CalendarIcon } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { type z } from "zod"
 

@@ -10,11 +10,6 @@ const config = {
   experimental: {
     serverActions: true,
   },
-  modularizeImports: {
-    "lucide-react": {
-      transform: "lucide-react/dist/esm/icons/{{kebabCase member}}",
-    },
-  },
 }
 
 export default config

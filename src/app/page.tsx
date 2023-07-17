@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { auth, SignInButton } from "@clerk/nextjs"
-import { LayoutDashboard, LogIn } from "lucide-react"
+import { LayoutDashboardIcon, LogInIcon } from "lucide-react"
 
 import { Button } from "~/components/ui/button"
 import TypeAnim from "~/components/type-anim"
@@ -19,13 +19,13 @@ export default function Home() {
         {!userId ? (
           <SignInButton afterSignInUrl="/dashboard" afterSignUpUrl="/dashboard">
             <Button variant="outline">
-              <LogIn className="mr-2 h-4 w-4" /> Sign up
+              <LogInIcon className="mr-2 h-4 w-4" /> Sign up
             </Button>
           </SignInButton>
         ) : (
           <Button variant="outline" asChild>
             <Link href="/dashboard">
-              <LayoutDashboard className="mr-2 h-4 w-4" /> Dashboard
+              <LayoutDashboardIcon className="mr-2 h-4 w-4" /> Dashboard
             </Link>
           </Button>
         )}

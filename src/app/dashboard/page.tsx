@@ -1,4 +1,4 @@
-import { CalendarHeart } from "lucide-react"
+import { CalendarHeartIcon } from "lucide-react"
 
 import CreateEvent from "~/components/create-event"
 import Events from "~/components/events"
@@ -14,7 +14,7 @@ export default async function Dashboard() {
     <div className="container -mt-16 flex h-full flex-col gap-8 px-4 py-16">
       <h1 className="flex items-center justify-between">
         <div className="flex gap-1 text-xl font-semibold underline decoration-rose-400">
-          <CalendarHeart /> Events
+          <CalendarHeartIcon /> Events
         </div>
         <CreateEvent />
       </h1>
