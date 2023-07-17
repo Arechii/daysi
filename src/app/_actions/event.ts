@@ -3,12 +3,12 @@
 import { revalidatePath } from "next/cache"
 import { auth } from "@clerk/nextjs"
 import { db } from "~/db"
-import { events, insertEventSchema } from "~/db/schema"
+import { events, type insertEventSchema } from "~/db/schema"
 import { createId } from "~/utils"
 import { and, desc, eq } from "drizzle-orm"
-import { z } from "zod"
+import { type z } from "zod"
 
-export async function getEventsAction() {
+export async function getEvents() {
   const { userId } = auth()
 
   if (!userId) return []
@@ -21,7 +21,7 @@ export async function getEventsAction() {
   return userEvents
 }
 
-export async function createEventAction({
+export async function createEvent({
   description,
   startedAt,
 }: z.infer<typeof insertEventSchema>) {
@@ -39,7 +39,7 @@ export async function createEventAction({
   revalidatePath("/dashboard")
 }
 
-export async function resetEventAction(id: string) {
+export async function resetEvent(id: string) {
   const { userId } = auth()
 
   if (!userId) return
@@ -54,7 +54,7 @@ export async function resetEventAction(id: string) {
   revalidatePath("/dashboard")
 }
 
-export async function deleteEventAction(id: string) {
+export async function deleteEvent(id: string) {
   const { userId } = auth()
 
   if (!userId) return

@@ -5,7 +5,7 @@ import Link from "next/link"
 import { type Event } from "~/db/schema"
 import { TimerResetIcon, Trash2Icon } from "lucide-react"
 
-import { deleteEventAction, resetEventAction } from "~/app/_actions/event"
+import { deleteEvent, resetEvent } from "~/app/_actions/event"
 
 import { Button } from "./ui/button"
 import { Card, CardContent } from "./ui/card"
@@ -29,7 +29,7 @@ const EventCard = ({ id, description, startedAt, resetAt }: Event) => {
 
   const reset = () => {
     startTransition(async () => {
-      await resetEventAction(id)
+      await resetEvent(id)
       toast({
         description: "Your event has been reset.",
       })
@@ -100,7 +100,7 @@ const DeleteEvent = ({ id }: { id: string }) => {
             disabled={isPending}
             onClick={() => {
               startTransition(async () => {
-                await deleteEventAction(id)
+                await deleteEvent(id)
                 toast({
                   description: "Your event has been deleted.",
                   variant: "destructive",

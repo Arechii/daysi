@@ -3,12 +3,12 @@ import { CalendarHeartIcon } from "lucide-react"
 import CreateEvent from "~/components/create-event"
 import Events from "~/components/events"
 
-import { getEventsAction } from "../_actions/event"
+import { getEvents } from "../_actions/event"
 
 export const runtime = "edge"
 
 export default async function Dashboard() {
-  const events = await getEventsAction()
+  const events = await getEvents()
 
   return (
     <div className="container -mt-16 flex h-full flex-col gap-8 px-4 py-16">

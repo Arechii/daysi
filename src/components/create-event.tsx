@@ -9,7 +9,7 @@ import { CalendarIcon } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { type z } from "zod"
 
-import { createEventAction } from "~/app/_actions/event"
+import { createEvent } from "~/app/_actions/event"
 
 import { Button } from "./ui/button"
 import { Calendar } from "./ui/calendar"
@@ -48,7 +48,7 @@ const CreateEvent = () => {
 
   function onSubmit(values: z.infer<typeof insertEventSchema>) {
     startTransition(async () => {
-      await createEventAction(values)
+      await createEvent(values)
       toast({
         description: "Your event has been created.",
       })
