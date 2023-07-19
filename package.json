@@ -30,7 +30,7 @@
     "date-fns": "2.30.0",
     "drizzle-orm": "0.27.2",
     "drizzle-zod": "0.4.4",
-    "lucide-react": "0.261.0",
+    "lucide-react": "0.262.0",
     "nanoid": "4.0.2",
     "next": "13.4.10",
     "next-themes": "0.2.1",
