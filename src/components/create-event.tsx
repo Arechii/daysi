@@ -38,11 +38,11 @@ const CreateEvent = () => {
 
   const form = useForm<z.infer<typeof insertEventSchema>>({
     resolver: zodResolver(
-      insertEventSchema.pick({ description: true, createdAt: true }),
+      insertEventSchema.pick({ description: true, startedAt: true }),
     ),
     defaultValues: {
       description: "",
-      createdAt: new Date(),
+      startedAt: new Date(),
     },
   })
 
@@ -86,7 +86,7 @@ const CreateEvent = () => {
             />
             <FormField
               control={form.control}
-              name="createdAt"
+              name="startedAt"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
                   <FormLabel>Start date</FormLabel>
@@ -112,8 +112,7 @@ const CreateEvent = () => {
                     <PopoverContent className="w-auto p-0" align="start">
                       <Calendar
                         mode="single"
-                        // eslint-disable-next-line @typescript-eslint/non-nullable-type-assertion-style
-                        selected={field.value as Date}
+                        selected={field.value}
                         onSelect={field.onChange}
                         disabled={(date) =>
                           date > new Date() || date < new Date("1900-01-01")

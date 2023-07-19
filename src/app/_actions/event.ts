@@ -34,6 +34,7 @@ export async function createEvent({
     userId,
     description,
     startedAt,
+    resetAt: startedAt,
   })
 
   revalidatePath("/dashboard")
