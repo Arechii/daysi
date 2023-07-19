@@ -11,7 +11,7 @@
     "studio": "drizzle-kit studio"
   },
   "dependencies": {
-    "@clerk/nextjs": "4.22.0",
+    "@clerk/nextjs": "4.22.1",
     "@formkit/auto-animate": "0.7.0",
     "@hookform/resolvers": "3.1.1",
     "@planetscale/database": "1.8.0",
