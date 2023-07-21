@@ -5,7 +5,8 @@ import Link from "next/link"
 import { type Event } from "~/db/schema"
 import { TimerResetIcon, Trash2Icon } from "lucide-react"
 
-import { deleteEvent, resetEvent } from "~/app/_actions/event"
+import { deleteEvent } from "~/app/_actions/event"
+import { createReset } from "~/app/_actions/reset"
 
 import { Button } from "./ui/button"
 import { Card, CardContent } from "./ui/card"
@@ -18,18 +19,24 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog"
+import { Separator } from "./ui/separator"
 import { toast } from "./ui/use-toast"
 
-const EventCard = ({ id, description, startedAt, resetAt }: Event) => {
+const EventCard = ({ id, description, startedAt, resets }: Event) => {
   const [isPending, startTransition] = useTransition()
 
+  const lastReset = resets[0]
+
   const daysSince = Math.floor(
-    Math.abs(resetAt.getTime() - new Date().getTime()) / (1000 * 3600 * 24),
+    Math.abs(
+      (lastReset?.createdAt ?? startedAt).getTime() - new Date().getTime(),
+    ) /
+      (1000 * 3600 * 24),
   )
 
   const reset = () => {
     startTransition(async () => {
-      await resetEvent(id)
+      await createReset({ eventId: id })
       toast({
         description: "Your event has been reset.",
       })
@@ -52,12 +59,20 @@ const EventCard = ({ id, description, startedAt, resetAt }: Event) => {
           >
             {description}
           </Link>
-          <p
-            className="text-sm text-gray-500 dark:text-gray-400"
+          <div
+            className="flex h-5 items-center space-x-4 text-sm text-gray-500 dark:text-gray-400"
             suppressHydrationWarning
           >
-            started on {startedAt.toLocaleDateString()}
-          </p>
+            <span>started on {startedAt.toLocaleDateString()}</span>
+            {lastReset && (
+              <>
+                <Separator orientation="vertical" />
+                <span>
+                  last reset on {lastReset.createdAt?.toLocaleDateString()}
+                </span>
+              </>
+            )}
+          </div>
         </div>
         <div className="ml-auto flex flex-col gap-2 md:flex-row">
           <Button
