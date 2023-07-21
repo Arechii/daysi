@@ -3,8 +3,8 @@ import { notFound } from "next/navigation"
 import { ImageResponse } from "next/server"
 import { clerkClient } from "@clerk/nextjs"
 import { db } from "~/db"
-import { events } from "~/db/schema"
-import { eq } from "drizzle-orm"
+import { events, resets } from "~/db/schema"
+import { desc, eq } from "drizzle-orm"
 
 export const runtime = "edge"
 export const contentType = "image/png"
@@ -15,6 +15,12 @@ export const size = {
 
 export default async function Image({ params }: { params: { slug: string } }) {
   const event = await db.query.events.findFirst({
+    with: {
+      resets: {
+        orderBy: desc(resets.createdAt),
+        limit: 1,
+      },
+    },
     where: eq(events.id, params.slug),
   })
 
@@ -24,7 +30,10 @@ export default async function Image({ params }: { params: { slug: string } }) {
 
   const user = await clerkClient.users.getUser(event.userId)
   const daysSince = Math.floor(
-    Math.abs(event.resetAt.getTime() - new Date().getTime()) /
+    Math.abs(
+      (event.resets[0]?.createdAt ?? event.startedAt).getTime() -
+        new Date().getTime(),
+    ) /
       (1000 * 3600 * 24),
   )
 
