@@ -1,5 +1,5 @@
 import { Inter } from "next/font/google"
-import { ClerkProvider, currentUser } from "@clerk/nextjs"
+import { ClerkProvider } from "@clerk/nextjs"
 import { Analytics } from "@vercel/analytics/react"
 import { env } from "~/env.mjs"
 import { twMerge } from "tailwind-merge"
@@ -22,33 +22,28 @@ export const metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
 }
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const user = await currentUser()
-
   return (
-    <ClerkProvider>
-      <html lang="en" suppressHydrationWarning>
-        <body
-          className={twMerge(
-            "flex h-screen flex-col gap-2 font-sans",
-            inter.variable,
-          )}
-        >
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={twMerge(
+          "flex h-screen flex-col gap-2 font-sans",
+          inter.variable,
+        )}
+      >
+        <ClerkProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <Navbar
-              username={user?.username}
-              profileImageUrl={user?.profileImageUrl}
-            />
+            <Navbar />
             {children}
             <Toaster />
           </ThemeProvider>
-          <Analytics />
-        </body>
-      </html>
-    </ClerkProvider>
+        </ClerkProvider>
+        <Analytics />
+      </body>
+    </html>
   )
 }
