@@ -33,6 +33,7 @@ export const resets = mysqlTable(
     id: varchar("id", { length: 10 }).primaryKey(),
     eventId: varchar("eventId", { length: 10 }).notNull(),
     userId: varchar("userId", { length: 32 }).notNull(),
+    imageId: varchar("imageId", { length: 36 }),
     note: text("note"),
     createdAt: timestamp("createdAt").defaultNow(),
     updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow(),
@@ -58,13 +59,14 @@ export const eventsRelations = relations(events, ({ many }) => ({
 
 export const resetsRelations = relations(resets, ({ one }) => ({
   event: one(events, { fields: [resets.eventId], references: [events.id] }),
+  image: one(images, { fields: [resets.imageId], references: [images.id] }),
 }))
 
-export type Event = InferModel<typeof events> & {
-  resets: Omit<Reset, "event">[]
-}
-export type Reset = InferModel<typeof resets> & { event: Omit<Event, "resets"> }
+export type Event = InferModel<typeof events>
+export type Reset = InferModel<typeof resets>
 export type Image = InferModel<typeof images>
+
+export type EventWithResets = Event & { resets: Reset[] }
 
 export const selectEventSchema = createSelectSchema(events)
 export const insertEventSchema = createInsertSchema(events, {

@@ -2,7 +2,7 @@
 
 import { useTransition } from "react"
 import Link from "next/link"
-import { type Event } from "~/db/schema"
+import { type EventWithResets } from "~/db/schema"
 import { TimerResetIcon, Trash2Icon } from "lucide-react"
 
 import { deleteEvent } from "~/app/_actions/event"
@@ -22,7 +22,7 @@ import {
 import { Separator } from "./ui/separator"
 import { toast } from "./ui/use-toast"
 
-const EventCard = ({ id, description, startedAt, resets }: Event) => {
+const EventCard = ({ id, description, startedAt, resets }: EventWithResets) => {
   const [isPending, startTransition] = useTransition()
 
   const lastReset = resets[0]

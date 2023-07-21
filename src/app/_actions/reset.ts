@@ -10,7 +10,7 @@ import { type z } from "zod"
 
 export async function createReset({
   eventId,
-}: Omit<z.infer<typeof insertResetSchema>, "id">) {
+}: Omit<z.infer<typeof insertResetSchema>, "id" | "userId">) {
   const { userId } = auth()
 
   if (!userId) return
