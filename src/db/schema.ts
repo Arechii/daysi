@@ -2,6 +2,7 @@ import { relations, type InferModel } from "drizzle-orm"
 import {
   index,
   mysqlTableCreator,
+  text,
   timestamp,
   varchar,
 } from "drizzle-orm/mysql-core"
@@ -30,6 +31,7 @@ export const resets = mysqlTable(
   {
     id: varchar("id", { length: 10 }).primaryKey(),
     eventId: varchar("eventId", { length: 10 }).notNull(),
+    note: text("note"),
     createdAt: timestamp("createdAt").defaultNow(),
     updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow(),
   },
