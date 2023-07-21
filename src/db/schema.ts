@@ -1,6 +1,7 @@
 import { relations, type InferModel } from "drizzle-orm"
 import {
   index,
+  int,
   mysqlTableCreator,
   text,
   timestamp,
@@ -42,6 +43,15 @@ export const resets = mysqlTable(
   }),
 )
 
+export const images = mysqlTable("images", {
+  id: varchar("id", { length: 36 }).primaryKey(),
+  name: varchar("name", { length: 256 }).notNull(),
+  size: int("size").notNull(),
+  url: varchar("url", { length: 256 }).notNull(),
+  createdAt: timestamp("createdAt").defaultNow(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow(),
+})
+
 export const eventsRelations = relations(events, ({ many }) => ({
   resets: many(resets),
 }))
@@ -54,6 +64,7 @@ export type Event = InferModel<typeof events> & {
   resets: Omit<Reset, "event">[]
 }
 export type Reset = InferModel<typeof resets> & { event: Omit<Event, "resets"> }
+export type Image = InferModel<typeof images>
 
 export const selectEventSchema = createSelectSchema(events)
 export const insertEventSchema = createInsertSchema(events, {
@@ -63,3 +74,6 @@ export const insertEventSchema = createInsertSchema(events, {
 
 export const selectResetSchema = createSelectSchema(resets)
 export const insertResetSchema = createInsertSchema(resets)
+
+export const selectImageSchema = createSelectSchema(images)
+export const insertImageSchema = createInsertSchema(images)
