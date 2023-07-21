@@ -32,21 +32,21 @@ import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover"
 import { Textarea } from "./ui/textarea"
 import { toast } from "./ui/use-toast"
 
+const schema = insertEventSchema.pick({ description: true, startedAt: true })
+
 const CreateEvent = () => {
   const [open, setOpen] = useState(false)
   const [isPending, startTransition] = useTransition()
 
-  const form = useForm<z.infer<typeof insertEventSchema>>({
-    resolver: zodResolver(
-      insertEventSchema.pick({ description: true, startedAt: true }),
-    ),
+  const form = useForm<z.infer<typeof schema>>({
+    resolver: zodResolver(schema),
     defaultValues: {
       description: "",
       startedAt: new Date(),
     },
   })
 
-  function onSubmit(values: z.infer<typeof insertEventSchema>) {
+  function onSubmit(values: z.infer<typeof schema>) {
     startTransition(async () => {
       await createEvent(values)
       toast({

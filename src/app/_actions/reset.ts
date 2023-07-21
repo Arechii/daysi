@@ -10,22 +10,27 @@ import { type z } from "zod"
 
 export async function createReset({
   eventId,
+  note,
 }: Omit<z.infer<typeof insertResetSchema>, "id" | "userId">) {
   const { userId } = auth()
 
-  if (!userId) return
+  if (!userId) throw new Error("Unauthorized")
 
   const event = await db.query.events.findFirst({
     where: and(eq(events.id, eventId), eq(events.userId, userId)),
   })
 
-  if (!event) return
+  if (!event) throw new Error("Event not found")
+
+  const id = createId()
 
   await db.insert(resets).values({
-    id: createId(),
+    id,
     eventId,
     userId,
+    note,
   })
 
   revalidatePath("/dashboard")
+  return id
 }

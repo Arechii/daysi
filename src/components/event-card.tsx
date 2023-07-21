@@ -3,11 +3,11 @@
 import { useTransition } from "react"
 import Link from "next/link"
 import { type EventWithResets } from "~/db/schema"
-import { TimerResetIcon, Trash2Icon } from "lucide-react"
+import { Trash2Icon } from "lucide-react"
 
 import { deleteEvent } from "~/app/_actions/event"
-import { createReset } from "~/app/_actions/reset"
 
+import CreateReset from "./create-reset"
 import { Button } from "./ui/button"
 import { Card, CardContent } from "./ui/card"
 import {
@@ -23,8 +23,6 @@ import { Separator } from "./ui/separator"
 import { toast } from "./ui/use-toast"
 
 const EventCard = ({ id, description, startedAt, resets }: EventWithResets) => {
-  const [isPending, startTransition] = useTransition()
-
   const lastReset = resets[0]
 
   const daysSince = Math.floor(
@@ -33,15 +31,6 @@ const EventCard = ({ id, description, startedAt, resets }: EventWithResets) => {
     ) /
       (1000 * 3600 * 24),
   )
-
-  const reset = () => {
-    startTransition(async () => {
-      await createReset({ eventId: id })
-      toast({
-        description: "Your event has been reset.",
-      })
-    })
-  }
 
   return (
     <Card>
@@ -75,14 +64,7 @@ const EventCard = ({ id, description, startedAt, resets }: EventWithResets) => {
           </div>
         </div>
         <div className="ml-auto flex flex-col gap-2 md:flex-row">
-          <Button
-            variant="outline"
-            size="icon"
-            disabled={isPending}
-            onClick={() => reset()}
-          >
-            <TimerResetIcon />
-          </Button>
+          <CreateReset eventId={id} />
           <DeleteEvent id={id} />
         </div>
       </CardContent>

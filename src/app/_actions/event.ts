@@ -30,7 +30,7 @@ export async function getEvents() {
 export async function createEvent({
   description,
   startedAt,
-}: z.infer<typeof insertEventSchema>) {
+}: Pick<z.infer<typeof insertEventSchema>, "description" | "startedAt">) {
   const { userId } = auth()
 
   if (!userId) return

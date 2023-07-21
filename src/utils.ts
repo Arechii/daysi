@@ -6,5 +6,5 @@ export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs))
 
 export const createId = customAlphabet(
   "0123456789abcdefghijklmnopqrstuvwxyz",
-  10
+  10,
 )
