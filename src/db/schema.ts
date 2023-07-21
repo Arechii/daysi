@@ -31,12 +31,14 @@ export const resets = mysqlTable(
   {
     id: varchar("id", { length: 10 }).primaryKey(),
     eventId: varchar("eventId", { length: 10 }).notNull(),
+    userId: varchar("userId", { length: 32 }).notNull(),
     note: text("note"),
     createdAt: timestamp("createdAt").defaultNow(),
     updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow(),
   },
   (resets) => ({
     eventIdIndex: index("eventid_idx").on(resets.eventId),
+    userIdIndex: index("userid_idx").on(resets.userId),
   }),
 )
 

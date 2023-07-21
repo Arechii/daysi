@@ -24,6 +24,7 @@ export async function createReset({
   await db.insert(resets).values({
     id: createId(),
     eventId,
+    userId,
   })
 
   revalidatePath("/dashboard")
