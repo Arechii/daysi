@@ -17,10 +17,10 @@ import {
 
 const UserButton = () => {
   const { signOut } = useAuth()
-  const { user } = useUser()
+  const { user, isSignedIn } = useUser()
   const router = useRouter()
 
-  if (!user) {
+  if (!isSignedIn) {
     return (
       <SignInButton afterSignInUrl="/dashboard" afterSignUpUrl="/dashboard">
         <Button variant="outline" size="icon">
