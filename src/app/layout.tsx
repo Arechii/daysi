@@ -1,5 +1,5 @@
 import { Inter } from "next/font/google"
-import { ClerkProvider } from "@clerk/nextjs"
+import { ClerkProvider, currentUser } from "@clerk/nextjs"
 import { Analytics } from "@vercel/analytics/react"
 import { env } from "~/env.mjs"
 import { twMerge } from "tailwind-merge"
@@ -22,11 +22,13 @@ export const metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const user = await currentUser()
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -37,7 +39,7 @@ export default function RootLayout({
       >
         <ClerkProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <Navbar />
+            <Navbar user={user} />
             {children}
             <Toaster />
           </ThemeProvider>

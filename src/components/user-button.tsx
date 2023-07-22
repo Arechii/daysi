@@ -1,7 +1,7 @@
 "use client"
 
 import { useRouter } from "next/navigation"
-import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs"
+import { SignInButton, SignOutButton } from "@clerk/nextjs"
 import { LayoutDashboardIcon, LogInIcon, LogOutIcon } from "lucide-react"
 
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
@@ -15,8 +15,15 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu"
 
-const UserButton = () => {
-  const { user, isSignedIn } = useUser()
+const UserButton = ({
+  isSignedIn,
+  username,
+  profileImageUrl,
+}: {
+  isSignedIn: boolean
+  username?: string | null
+  profileImageUrl?: string
+}) => {
   const router = useRouter()
 
   if (!isSignedIn) {
@@ -34,25 +41,25 @@ const UserButton = () => {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon">
           <Avatar className="h-9 w-9 select-none hover:cursor-pointer">
-            <AvatarImage src={user.profileImageUrl} />
-            <AvatarFallback>{user.username}</AvatarFallback>
+            <AvatarImage src={profileImageUrl} />
+            <AvatarFallback>{username}</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuLabel>{user.username}</DropdownMenuLabel>
+        <DropdownMenuLabel>{username}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => router.push("/dashboard")}>
           <LayoutDashboardIcon className="mr-2 h-4 w-4" />
           Dashboard
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <SignOutButton>
+        <SignOutButton signOutCallback={() => router.push("/")}>
+          <DropdownMenuItem>
             <LogOutIcon className="mr-2 h-4 w-4" />
             Sign out
-          </SignOutButton>
-        </DropdownMenuItem>
+          </DropdownMenuItem>
+        </SignOutButton>
       </DropdownMenuContent>
     </DropdownMenu>
   )
