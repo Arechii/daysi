@@ -1,6 +1,7 @@
 import { currentUser } from "@clerk/nextjs"
 import { db } from "~/db"
 import { images, resets } from "~/db/schema"
+import { createId } from "~/utils"
 import { and, eq } from "drizzle-orm"
 import { createUploadthing, type FileRouter } from "uploadthing/next"
 import { z } from "zod"
@@ -26,11 +27,11 @@ export const uploadRouter = {
     .onUploadComplete(async ({ file, metadata }) => {
       console.log(file, metadata)
 
-      const { key: id, ...rest } = file
+      const id = createId()
 
       await db.insert(images).values({
         id,
-        ...rest,
+        ...file,
       })
       await db
         .update(resets)

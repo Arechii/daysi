@@ -45,7 +45,8 @@ export const resets = mysqlTable(
 )
 
 export const images = mysqlTable("images", {
-  id: varchar("id", { length: 36 }).primaryKey(),
+  id: varchar("id", { length: 10 }).primaryKey(),
+  key: varchar("key", { length: 256 }).notNull(),
   name: varchar("name", { length: 256 }).notNull(),
   size: int("size").notNull(),
   url: varchar("url", { length: 256 }).notNull(),
