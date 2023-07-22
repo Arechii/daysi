@@ -43,7 +43,12 @@ const UserButton = ({
           Dashboard
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => signOut()}>
+        <DropdownMenuItem
+          onClick={() => {
+            router.push("/")
+            void signOut()
+          }}
+        >
           <LogOutIcon className="mr-2 h-4 w-4" />
           Sign out
         </DropdownMenuItem>
