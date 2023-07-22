@@ -3,9 +3,9 @@
 import { revalidatePath } from "next/cache"
 import { auth } from "@clerk/nextjs"
 import { db } from "~/db"
-import { events, resets, type insertEventSchema } from "~/db/schema"
+import { events, images, resets, type insertEventSchema } from "~/db/schema"
 import { createId } from "~/utils"
-import { and, desc, eq } from "drizzle-orm"
+import { and, desc, eq, inArray } from "drizzle-orm"
 import { type z } from "zod"
 
 export async function getEvents() {
@@ -50,9 +50,22 @@ export async function deleteEvent(id: string) {
 
   if (!userId) return
 
-  await db
-    .delete(events)
-    .where(and(eq(events.id, id), eq(events.userId, userId)))
+  const userEvent = await db.query.events.findFirst({
+    with: { resets: true },
+    where: and(eq(events.id, id), eq(events.userId, userId)),
+  })
+
+  if (!userEvent) return
+
+  const imageIds = userEvent.resets
+    .map((reset) => reset.imageId)
+    .filter(Boolean)
+
+  await db.delete(events).where(eq(events.id, id))
+  await db.delete(resets).where(eq(resets.eventId, id))
+
+  if (imageIds.length > 0)
+    await db.delete(images).where(inArray(images.id, imageIds))
 
   revalidatePath("/dashboard")
 }
