@@ -14,11 +14,12 @@ const Navbar = ({ user }: { user: User | null }) => {
         </h1>
       </Link>
       <div className="flex flex-row-reverse gap-2">
-        <UserButton
-          isSignedIn={!!user}
-          username={user?.username}
-          profileImageUrl={user?.profileImageUrl}
-        />
+        {user && (
+          <UserButton
+            username={user.username}
+            profileImageUrl={user.profileImageUrl}
+          />
+        )}
         <ThemeToggle />
       </div>
     </div>
