@@ -11,7 +11,7 @@ import { type z } from "zod"
 export async function getEvents() {
   const { userId } = auth()
 
-  if (!userId) return []
+  if (!userId) throw new Error("Unauthorized")
 
   const userEvents = await db.query.events.findMany({
     with: {
@@ -33,7 +33,7 @@ export async function createEvent({
 }: Pick<z.infer<typeof insertEventSchema>, "description" | "startedAt">) {
   const { userId } = auth()
 
-  if (!userId) return
+  if (!userId) throw new Error("Unauthorized")
 
   await db.insert(events).values({
     id: createId(),
@@ -48,14 +48,14 @@ export async function createEvent({
 export async function deleteEvent(id: string) {
   const { userId } = auth()
 
-  if (!userId) return
+  if (!userId) throw new Error("Unauthorized")
 
   const userEvent = await db.query.events.findFirst({
     with: { resets: true },
     where: and(eq(events.id, id), eq(events.userId, userId)),
   })
 
-  if (!userEvent) return
+  if (!userEvent) throw new Error("Event not found")
 
   const imageIds = userEvent.resets
     .map((reset) => reset.imageId)
