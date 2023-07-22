@@ -1,7 +1,7 @@
 "use client"
 
 import { useRouter } from "next/navigation"
-import { SignInButton, useAuth, useUser } from "@clerk/nextjs"
+import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs"
 import { LayoutDashboardIcon, LogInIcon, LogOutIcon } from "lucide-react"
 
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
@@ -16,7 +16,6 @@ import {
 } from "./ui/dropdown-menu"
 
 const UserButton = () => {
-  const { signOut } = useAuth()
   const { user, isSignedIn } = useUser()
   const router = useRouter()
 
@@ -48,9 +47,11 @@ const UserButton = () => {
           Dashboard
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => signOut()}>
-          <LogOutIcon className="mr-2 h-4 w-4" />
-          Sign out
+        <DropdownMenuItem>
+          <SignOutButton>
+            <LogOutIcon className="mr-2 h-4 w-4" />
+            Sign out
+          </SignOutButton>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
