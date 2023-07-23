@@ -8,7 +8,7 @@ import { createId } from "~/utils"
 import { and, desc, eq, inArray } from "drizzle-orm"
 import { type z } from "zod"
 
-export type Event = Awaited<ReturnType<typeof getEvents>>[number]
+export type GetEvents = Awaited<ReturnType<typeof getEvents>>
 
 const daysSince = (date: Date) => {
   return Math.floor(

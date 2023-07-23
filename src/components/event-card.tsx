@@ -4,7 +4,7 @@ import { useTransition } from "react"
 import Link from "next/link"
 import { Trash2Icon } from "lucide-react"
 
-import { deleteEvent, type Event } from "~/app/_actions/event"
+import { deleteEvent, type GetEvents } from "~/app/_actions/event"
 
 import CreateReset from "./create-reset"
 import { Button } from "./ui/button"
@@ -27,7 +27,7 @@ const EventCard = ({
   startedAt,
   daysSince,
   lastReset,
-}: Event) => {
+}: GetEvents[number]) => {
   return (
     <Card>
       <CardContent className="flex items-center gap-4 pt-6 md:gap-8">

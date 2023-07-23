@@ -1,11 +1,12 @@
 "use client"
 
 import { useAutoAnimate } from "@formkit/auto-animate/react"
-import { type EventWithResets } from "~/db/schema"
+
+import { type GetEvents } from "~/app/_actions/event"
 
 import EventCard from "./event-card"
 
-const Events = ({ events }: { events: EventWithResets[] }) => {
+const Events = ({ events }: { events: GetEvents }) => {
   const [parent] = useAutoAnimate()
 
   return (
