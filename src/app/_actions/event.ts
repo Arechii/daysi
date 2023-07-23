@@ -10,7 +10,13 @@ import { type z } from "zod"
 
 export type Event = Awaited<ReturnType<typeof getEvents>>[number]
 
-export async function getEvents() {
+const daysSince = (date: Date) => {
+  return Math.floor(
+    Math.abs(date.getTime() - new Date().getTime()) / (1000 * 3600 * 24),
+  )
+}
+
+export const getEvents = async () => {
   const { userId } = auth()
 
   if (!userId) throw new Error("Unauthorized")
@@ -34,18 +40,34 @@ export async function getEvents() {
     return {
       ...e,
       lastReset,
-      daysSince: Math.floor(
-        Math.abs((lastReset ?? e.startedAt).getTime() - new Date().getTime()) /
-          (1000 * 3600 * 24),
-      ),
+      daysSince: daysSince(lastReset ?? e.startedAt),
     }
   })
 }
 
-export async function createEvent({
+export const getEvent = async (id: string) => {
+  const userEvent = await db.query.events.findFirst({
+    with: {
+      resets: { with: { image: true }, orderBy: desc(resets.createdAt) },
+    },
+    where: and(eq(events.id, id)),
+  })
+
+  if (!userEvent) throw new Error("Event not found")
+
+  const lastReset = userEvent.resets[0]?.createdAt
+
+  return {
+    ...userEvent,
+    lastReset,
+    daysSince: daysSince(lastReset ?? userEvent.startedAt),
+  }
+}
+
+export const createEvent = async ({
   description,
   startedAt,
-}: Pick<z.infer<typeof insertEventSchema>, "description" | "startedAt">) {
+}: Pick<z.infer<typeof insertEventSchema>, "description" | "startedAt">) => {
   const { userId } = auth()
 
   if (!userId) throw new Error("Unauthorized")
@@ -60,7 +82,7 @@ export async function createEvent({
   revalidatePath("/dashboard")
 }
 
-export async function deleteEvent(id: string) {
+export const deleteEvent = async (id: string) => {
   const { userId } = auth()
 
   if (!userId) throw new Error("Unauthorized")

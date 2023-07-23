@@ -8,10 +8,10 @@ import { createId } from "~/utils"
 import { and, eq } from "drizzle-orm"
 import { type z } from "zod"
 
-export async function createReset({
+export const createReset = async ({
   eventId,
   note,
-}: Omit<z.infer<typeof insertResetSchema>, "id" | "userId">) {
+}: Omit<z.infer<typeof insertResetSchema>, "id" | "userId">) => {
   const { userId } = auth()
 
   if (!userId) throw new Error("Unauthorized")
