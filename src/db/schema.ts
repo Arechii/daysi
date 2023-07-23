@@ -67,8 +67,6 @@ export type Event = InferModel<typeof events>
 export type Reset = InferModel<typeof resets>
 export type Image = InferModel<typeof images>
 
-export type EventWithResets = Event & { resets: Reset[] }
-
 export const selectEventSchema = createSelectSchema(events)
 export const insertEventSchema = createInsertSchema(events, {
   description: (schema) => schema.description.min(3),

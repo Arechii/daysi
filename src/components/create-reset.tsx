@@ -31,7 +31,7 @@ import { Input } from "./ui/input"
 import { Textarea } from "./ui/textarea"
 import { toast } from "./ui/use-toast"
 
-const { useUploadThing } = generateReactHelpers<UploadRouter>()
+const { uploadFiles } = generateReactHelpers<UploadRouter>()
 
 const schema = insertResetSchema.pick({ note: true }).extend({
   image: z
@@ -47,16 +47,23 @@ const schema = insertResetSchema.pick({ note: true }).extend({
 const CreateReset = ({ eventId }: { eventId: string }) => {
   const [open, setOpen] = useState(false)
   const [isPending, startTransition] = useTransition()
-  const { startUpload, isUploading } = useUploadThing("resetImage")
 
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
   })
 
-  function onSubmit({ image, ...values }: z.infer<typeof schema>) {
+  const onSubmit = ({ image, ...values }: z.infer<typeof schema>) => {
     startTransition(async () => {
       const resetId = await createReset({ eventId, ...values })
-      if (image) await startUpload([image], { resetId })
+
+      if (image) {
+        await uploadFiles({
+          endpoint: "resetImage",
+          files: [image],
+          input: { resetId },
+        })
+      }
+
       toast({
         description: "Your event has been reset.",
       })
@@ -117,11 +124,7 @@ const CreateReset = ({ eventId }: { eventId: string }) => {
                 </FormItem>
               )}
             />
-            <Button
-              type="submit"
-              className="self-end"
-              disabled={isPending || isUploading}
-            >
+            <Button type="submit" className="self-end" disabled={isPending}>
               Reset
             </Button>
           </form>

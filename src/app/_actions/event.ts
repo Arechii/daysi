@@ -8,6 +8,8 @@ import { createId } from "~/utils"
 import { and, desc, eq, inArray } from "drizzle-orm"
 import { type z } from "zod"
 
+export type Event = Awaited<ReturnType<typeof getEvents>>[number]
+
 export async function getEvents() {
   const { userId } = auth()
 
@@ -16,15 +18,28 @@ export async function getEvents() {
   const userEvents = await db.query.events.findMany({
     with: {
       resets: {
+        columns: { createdAt: true },
         orderBy: desc(resets.createdAt),
         limit: 1,
       },
     },
+    columns: { id: true, description: true, startedAt: true },
     where: eq(events.userId, userId),
     orderBy: desc(events.startedAt),
   })
 
-  return userEvents
+  return userEvents.map(({ resets, ...e }) => {
+    const lastReset = resets[0]?.createdAt
+
+    return {
+      ...e,
+      lastReset,
+      daysSince: Math.floor(
+        Math.abs((lastReset ?? e.startedAt).getTime() - new Date().getTime()) /
+          (1000 * 3600 * 24),
+      ),
+    }
+  })
 }
 
 export async function createEvent({

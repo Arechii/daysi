@@ -2,10 +2,9 @@
 
 import { useTransition } from "react"
 import Link from "next/link"
-import { type EventWithResets } from "~/db/schema"
 import { Trash2Icon } from "lucide-react"
 
-import { deleteEvent } from "~/app/_actions/event"
+import { deleteEvent, type Event } from "~/app/_actions/event"
 
 import CreateReset from "./create-reset"
 import { Button } from "./ui/button"
@@ -22,16 +21,13 @@ import {
 import { Separator } from "./ui/separator"
 import { toast } from "./ui/use-toast"
 
-const EventCard = ({ id, description, startedAt, resets }: EventWithResets) => {
-  const lastReset = resets[0]
-
-  const daysSince = Math.floor(
-    Math.abs(
-      (lastReset?.createdAt ?? startedAt).getTime() - new Date().getTime(),
-    ) /
-      (1000 * 3600 * 24),
-  )
-
+const EventCard = ({
+  id,
+  description,
+  startedAt,
+  daysSince,
+  lastReset,
+}: Event) => {
   return (
     <Card>
       <CardContent className="flex items-center gap-4 pt-6 md:gap-8">
@@ -56,9 +52,7 @@ const EventCard = ({ id, description, startedAt, resets }: EventWithResets) => {
             {lastReset && (
               <>
                 <Separator orientation="vertical" />
-                <span>
-                  last reset on {lastReset.createdAt?.toLocaleDateString()}
-                </span>
+                <span>last reset on {lastReset.toLocaleDateString()}</span>
               </>
             )}
           </div>

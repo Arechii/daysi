@@ -46,7 +46,7 @@ const CreateEvent = () => {
     },
   })
 
-  function onSubmit(values: z.infer<typeof schema>) {
+  const onSubmit = (values: z.infer<typeof schema>) => {
     startTransition(async () => {
       await createEvent(values)
       toast({
