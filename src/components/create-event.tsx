@@ -36,7 +36,7 @@ const schema = insertEventSchema.pick({ description: true, startedAt: true })
 
 const CreateEvent = () => {
   const [open, setOpen] = useState(false)
-  const [isPending, startTransition] = useTransition()
+  const [, startTransition] = useTransition()
 
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
@@ -47,14 +47,14 @@ const CreateEvent = () => {
   })
 
   const onSubmit = (values: z.infer<typeof schema>) => {
+    setOpen(false)
     startTransition(async () => {
       await createEvent(values)
       toast({
         description: "Your event has been created.",
       })
-      setOpen(false)
-      form.reset()
     })
+    form.reset()
   }
 
   return (
@@ -125,7 +125,7 @@ const CreateEvent = () => {
                 </FormItem>
               )}
             />
-            <Button type="submit" className="self-end" disabled={isPending}>
+            <Button type="submit" className="self-end">
               Create
             </Button>
           </form>

@@ -46,13 +46,14 @@ const schema = insertResetSchema.pick({ note: true }).extend({
 
 const CreateReset = ({ eventId }: { eventId: string }) => {
   const [open, setOpen] = useState(false)
-  const [isPending, startTransition] = useTransition()
+  const [, startTransition] = useTransition()
 
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
   })
 
   const onSubmit = ({ image, ...values }: z.infer<typeof schema>) => {
+    setOpen(false)
     startTransition(async () => {
       const resetId = await createReset({ eventId, ...values })
 
@@ -67,9 +68,8 @@ const CreateReset = ({ eventId }: { eventId: string }) => {
       toast({
         description: "Your event has been reset.",
       })
-      setOpen(false)
-      form.reset()
     })
+    form.reset()
   }
 
   return (
@@ -124,7 +124,7 @@ const CreateReset = ({ eventId }: { eventId: string }) => {
                 </FormItem>
               )}
             />
-            <Button type="submit" className="self-end" disabled={isPending}>
+            <Button type="submit" className="self-end">
               Reset
             </Button>
           </form>
