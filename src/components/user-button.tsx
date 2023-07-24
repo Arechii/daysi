@@ -38,18 +38,22 @@ const UserButton = ({
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>{username}</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => router.push("/dashboard")}>
-          <LayoutDashboardIcon className="mr-2 h-4 w-4" />
+        <DropdownMenuItem
+          className="flex gap-2"
+          onClick={() => router.push("/dashboard")}
+        >
+          <LayoutDashboardIcon className="h-4 w-4 text-blue-400" />
           Dashboard
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
+          className="flex gap-2"
           onClick={() => {
             router.push("/")
             void signOut()
           }}
         >
-          <LogOutIcon className="mr-2 h-4 w-4" />
+          <LogOutIcon className="h-4 w-4 text-red-400" />
           Sign out
         </DropdownMenuItem>
       </DropdownMenuContent>

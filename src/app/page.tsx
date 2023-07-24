@@ -18,14 +18,14 @@ export default function Home() {
         </h2>
         {!userId ? (
           <SignInButton afterSignInUrl="/dashboard" afterSignUpUrl="/dashboard">
-            <Button variant="outline">
-              <LogInIcon className="mr-2 h-4 w-4" /> Sign up
+            <Button variant="outline" className="flex gap-2">
+              <LogInIcon className="h-4 w-4" /> Sign up
             </Button>
           </SignInButton>
         ) : (
           <Button variant="outline" asChild>
-            <Link href="/dashboard">
-              <LayoutDashboardIcon className="mr-2 h-4 w-4" /> Dashboard
+            <Link href="/dashboard" className="flex gap-2">
+              <LayoutDashboardIcon className="h-4 w-4" /> Dashboard
             </Link>
           </Button>
         )}
