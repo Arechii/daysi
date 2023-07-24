@@ -7,17 +7,19 @@ import { Trash2Icon } from "lucide-react"
 import { deleteEvent, type GetEvents } from "~/app/_actions/event"
 
 import CreateReset from "./create-reset"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "./ui/alert-dialog"
 import { Button } from "./ui/button"
 import { Card, CardContent } from "./ui/card"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "./ui/dialog"
 import { Separator } from "./ui/separator"
 import { toast } from "./ui/use-toast"
 
@@ -67,28 +69,26 @@ const EventCard = ({
 }
 
 const DeleteEvent = ({ id }: { id: string }) => {
-  const [isPending, startTransition] = useTransition()
+  const [, startTransition] = useTransition()
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
+    <AlertDialog>
+      <AlertDialogTrigger>
         <Button variant="destructive" size="icon">
           <Trash2Icon />
         </Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Are you sure?</DialogTitle>
-          <DialogDescription>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+          <AlertDialogDescription>
             This action cannot be undone. Are you sure you want to permanently
             delete this event?
-          </DialogDescription>
-        </DialogHeader>
-        <DialogFooter>
-          <Button
-            type="submit"
-            variant="destructive"
-            disabled={isPending}
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction
             onClick={() => {
               startTransition(async () => {
                 await deleteEvent(id)
@@ -99,11 +99,11 @@ const DeleteEvent = ({ id }: { id: string }) => {
               })
             }}
           >
-            Delete
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+            Continue
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   )
 }
 
