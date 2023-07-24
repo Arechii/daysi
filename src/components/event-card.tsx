@@ -1,27 +1,13 @@
 "use client"
 
-import { useTransition } from "react"
 import Link from "next/link"
-import { Trash2Icon } from "lucide-react"
 
-import { deleteEvent, type GetEvents } from "~/app/_actions/event"
+import { type GetEvents } from "~/app/_actions/event"
 
 import CreateReset from "./create-reset"
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "./ui/alert-dialog"
-import { Button } from "./ui/button"
+import DeleteEvent from "./delete-event"
 import { Card, CardContent } from "./ui/card"
 import { Separator } from "./ui/separator"
-import { toast } from "./ui/use-toast"
 
 const EventCard = ({
   id,
@@ -61,49 +47,10 @@ const EventCard = ({
         </div>
         <div className="ml-auto flex flex-col gap-2 md:flex-row">
           <CreateReset eventId={id} />
-          <DeleteEvent id={id} />
+          <DeleteEvent eventId={id} />
         </div>
       </CardContent>
     </Card>
-  )
-}
-
-const DeleteEvent = ({ id }: { id: string }) => {
-  const [, startTransition] = useTransition()
-
-  return (
-    <AlertDialog>
-      <AlertDialogTrigger>
-        <Button variant="destructive" size="icon">
-          <Trash2Icon />
-        </Button>
-      </AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-          <AlertDialogDescription>
-            This action cannot be undone. Are you sure you want to permanently
-            delete this event?
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction
-            onClick={() => {
-              startTransition(async () => {
-                await deleteEvent(id)
-                toast({
-                  description: "Your event has been deleted.",
-                  variant: "destructive",
-                })
-              })
-            }}
-          >
-            Continue
-          </AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
   )
 }
 
