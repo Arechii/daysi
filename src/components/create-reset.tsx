@@ -46,7 +46,7 @@ const schema = insertResetSchema.pick({ note: true }).extend({
 
 const CreateReset = ({ eventId }: { eventId: string }) => {
   const [open, setOpen] = useState(false)
-  const [, startTransition] = useTransition()
+  const [isPending, startTransition] = useTransition()
 
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
@@ -75,7 +75,7 @@ const CreateReset = ({ eventId }: { eventId: string }) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" size="icon">
+        <Button variant="outline" size="icon" disabled={isPending}>
           <TimerResetIcon />
         </Button>
       </DialogTrigger>

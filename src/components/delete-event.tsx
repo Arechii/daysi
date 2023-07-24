@@ -20,12 +20,12 @@ import { Button } from "./ui/button"
 import { toast } from "./ui/use-toast"
 
 const DeleteEvent = ({ eventId }: { eventId: string }) => {
-  const [, startTransition] = useTransition()
+  const [isPending, startTransition] = useTransition()
 
   return (
     <AlertDialog>
       <AlertDialogTrigger>
-        <Button variant="destructive" size="icon">
+        <Button variant="destructive" size="icon" disabled={isPending}>
           <Trash2Icon />
         </Button>
       </AlertDialogTrigger>

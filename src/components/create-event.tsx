@@ -36,7 +36,7 @@ const schema = insertEventSchema.pick({ description: true, startedAt: true })
 
 const CreateEvent = () => {
   const [open, setOpen] = useState(false)
-  const [, startTransition] = useTransition()
+  const [isPending, startTransition] = useTransition()
 
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
@@ -60,7 +60,7 @@ const CreateEvent = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>Create</Button>
+        <Button disabled={isPending}>Create</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
