@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@clerk/nextjs':
-    specifier: 4.23.0
-    version: 4.23.0(next@13.4.12)(react-dom@18.2.0)(react@18.2.0)
+    specifier: 4.23.1
+    version: 4.23.1(next@13.4.12)(react-dom@18.2.0)(react@18.2.0)
   '@formkit/auto-animate':
     specifier: 0.7.0
     version: 0.7.0
@@ -387,8 +387,8 @@ packages:
       tslib: 2.4.1
     dev: false
 
-  /@clerk/clerk-sdk-node@4.12.0:
-    resolution: {integrity: sha512-5ViPNDkM+huloBB7O8qArIMXVqqX3JH1dKFQiktLcG/BrlAPmdA0ks9c0Mlnl+W2T1vQlAuH+7QLzpGUk9GtJw==}
+  /@clerk/clerk-sdk-node@4.12.1:
+    resolution: {integrity: sha512-KR8L0zX9YWms8ScZPXLfBmEHYxFWuI+JeXJ/UtYhTP5qu2LBoAOBbZI0zsYPwTKE2L/1i2Gga6m3whmVAJfmzg==}
     engines: {node: '>=14'}
     dependencies:
       '@clerk/backend': 0.26.0
@@ -401,8 +401,8 @@ packages:
       tslib: 2.4.1
     dev: false
 
-  /@clerk/nextjs@4.23.0(next@13.4.12)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-GOgtMDGJHiOIQ16WIARLUL7uvFV6yP7wHai8fOWtxISQff0dCTTltTvlotwyU4im0sb1xeznZrDyubCRbRIXmg==}
+  /@clerk/nextjs@4.23.1(next@13.4.12)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-r7lSisqvUvyvlakn69AN+3EDBgIuEQQBR7Hn/MR71UT7zfKvdsRCyTENsj+rxDgfb8a4guiytDJGk1lOewLLvQ==}
     engines: {node: '>=14'}
     peerDependencies:
       next: '>=10'
@@ -411,7 +411,7 @@ packages:
     dependencies:
       '@clerk/backend': 0.26.0
       '@clerk/clerk-react': 4.23.1(react@18.2.0)
-      '@clerk/clerk-sdk-node': 4.12.0
+      '@clerk/clerk-sdk-node': 4.12.1
       '@clerk/types': 3.48.1
       next: 13.4.12(@babel/core@7.22.9)(react-dom@18.2.0)(react@18.2.0)
       path-to-regexp: 6.2.1
