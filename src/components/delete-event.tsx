@@ -24,7 +24,7 @@ const DeleteEvent = ({ eventId }: { eventId: string }) => {
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger>
+      <AlertDialogTrigger asChild>
         <Button variant="destructive" size="icon" disabled={isPending}>
           <Trash2Icon />
         </Button>
