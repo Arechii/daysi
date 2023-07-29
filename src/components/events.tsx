@@ -10,7 +10,10 @@ const Events = ({ events }: { events: GetEvents }) => {
   const [parent] = useAutoAnimate()
 
   return (
-    <div ref={parent} className="flex h-full flex-col gap-4 overflow-y-scroll">
+    <div
+      ref={parent}
+      className="flex h-full flex-col gap-4 overflow-y-auto p-2"
+    >
       {events.map((e) => (
         <EventCard key={e.id} {...e} />
       ))}
