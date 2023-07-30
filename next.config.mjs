@@ -10,6 +10,9 @@ const config = {
   experimental: {
     serverActions: true,
   },
+  images: {
+    domains: ["uploadthing.com"],
+  },
 }
 
 export default config

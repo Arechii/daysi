@@ -1,7 +1,7 @@
 "use server"
 
 import { revalidatePath } from "next/cache"
-import { auth } from "@clerk/nextjs"
+import { auth, clerkClient } from "@clerk/nextjs"
 import { db } from "~/db"
 import { events, images, resets, type insertEventSchema } from "~/db/schema"
 import { createId } from "~/utils"
@@ -9,6 +9,7 @@ import { and, desc, eq, inArray } from "drizzle-orm"
 import { type z } from "zod"
 
 export type GetEvents = Awaited<ReturnType<typeof getEvents>>
+export type GetEvent = Awaited<ReturnType<typeof getEvent>>
 
 const daysSince = (date: Date) => {
   return Math.floor(
@@ -48,7 +49,10 @@ export const getEvents = async () => {
 export const getEvent = async (id: string) => {
   const userEvent = await db.query.events.findFirst({
     with: {
-      resets: { with: { image: true }, orderBy: desc(resets.createdAt) },
+      resets: {
+        with: { image: { columns: { url: true } } },
+        orderBy: desc(resets.createdAt),
+      },
     },
     where: and(eq(events.id, id)),
   })
@@ -56,9 +60,22 @@ export const getEvent = async (id: string) => {
   if (!userEvent) throw new Error("Event not found")
 
   const lastReset = userEvent.resets[0]?.createdAt
+  const users = await clerkClient.users.getUserList({
+    userId: [...new Set(userEvent.resets.map((r) => r.userId))],
+  })
 
   return {
     ...userEvent,
+    resets: userEvent.resets.map((r) => {
+      const user = users.find((u) => u.id === r.userId)
+      return {
+        ...r,
+        user: {
+          username: user?.username,
+          profileImageUrl: user?.profileImageUrl,
+        },
+      }
+    }),
     lastReset,
     daysSince: daysSince(lastReset ?? userEvent.startedAt),
   }

@@ -31,6 +31,7 @@ const config = {
         ignoreArrowShorthand: true,
       },
     ],
+    "@next/next/no-img-element": "off",
   },
 }
 
