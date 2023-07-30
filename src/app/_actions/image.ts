@@ -36,7 +36,7 @@ export const createSignedUrl = async ({
     r2,
     new PutObjectCommand({
       Bucket: "daysi",
-      Key: id,
+      Key: `${id}.${extension}`,
       ContentType: type,
     }),
     {
