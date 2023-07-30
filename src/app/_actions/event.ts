@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache"
 import { auth, clerkClient } from "@clerk/nextjs"
 import { db } from "~/db"
 import { events, images, resets, type insertEventSchema } from "~/db/schema"
-import { createId } from "~/utils"
+import { createId, imageUrl } from "~/utils"
 import { and, desc, eq, inArray } from "drizzle-orm"
 import { type z } from "zod"
 
@@ -50,7 +50,7 @@ export const getEvent = async (id: string) => {
   const userEvent = await db.query.events.findFirst({
     with: {
       resets: {
-        with: { image: { columns: { url: true } } },
+        with: { image: { columns: { key: true } } },
         orderBy: desc(resets.createdAt),
       },
     },
@@ -70,6 +70,7 @@ export const getEvent = async (id: string) => {
       const user = users.find((u) => u.id === r.userId)
       return {
         ...r,
+        image: r.image && { url: imageUrl(r.image.key) },
         user: {
           username: user?.username,
           profileImageUrl: user?.profileImageUrl,

@@ -11,6 +11,7 @@ import { type z } from "zod"
 export const createReset = async ({
   eventId,
   note,
+  imageId,
 }: Omit<z.infer<typeof insertResetSchema>, "id" | "userId">) => {
   const { userId } = auth()
 
@@ -29,6 +30,7 @@ export const createReset = async ({
     eventId,
     userId,
     note,
+    imageId,
   })
 
   revalidatePath("/dashboard")

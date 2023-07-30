@@ -2,14 +2,13 @@
 
 import { useState, useTransition } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { generateReactHelpers } from "@uploadthing/react/hooks"
 import { insertResetSchema } from "~/db/schema"
 import { TimerResetIcon } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
+import { createSignedUrl } from "~/app/_actions/image"
 import { createReset } from "~/app/_actions/reset"
-import { type UploadRouter } from "~/app/api/uploadthing/core"
 
 import { Button } from "./ui/button"
 import {
@@ -30,8 +29,6 @@ import {
 import { Input } from "./ui/input"
 import { Textarea } from "./ui/textarea"
 import { toast } from "./ui/use-toast"
-
-const { uploadFiles } = generateReactHelpers<UploadRouter>()
 
 const schema = insertResetSchema.pick({ note: true }).extend({
   image: z
@@ -55,15 +52,24 @@ const CreateReset = ({ eventId }: { eventId: string }) => {
   const onSubmit = ({ image, ...values }: z.infer<typeof schema>) => {
     setOpen(false)
     startTransition(async () => {
-      const resetId = await createReset({ eventId, ...values })
+      let imageId: string | null = null
 
       if (image) {
-        await uploadFiles({
-          endpoint: "resetImage",
-          files: [image],
-          input: { resetId },
+        const { type, size } = image
+        const { signedUrl, id } = await createSignedUrl({
+          type,
+          size,
         })
+
+        await fetch(signedUrl, {
+          method: "PUT",
+          body: image,
+        })
+
+        imageId = id
       }
+
+      await createReset({ eventId, imageId, ...values })
 
       toast({
         description: "Your event has been reset.",
