@@ -34,6 +34,6 @@ export const createReset = async ({
   })
 
   revalidatePath("/dashboard")
-  revalidatePath(`/event/${eventId}`)
+  revalidatePath("/event/[slug]")
   return id
 }
