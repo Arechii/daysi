@@ -2,6 +2,7 @@ import { clsx, type ClassValue } from "clsx"
 import { customAlphabet } from "nanoid"
 import { twMerge } from "tailwind-merge"
 
+import { type Image } from "./db/schema"
 import { env } from "./env.mjs"
 
 export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs))
@@ -11,4 +12,5 @@ export const createId = customAlphabet(
   10,
 )
 
-export const imageUrl = (key: string) => `${env.R2_DOMAIN}/${key}`
+export const imageUrl = (image: Pick<Image, "id" | "type">) =>
+  `${env.R2_DOMAIN}/${image.id}.${image.type.split("/")[1]}`

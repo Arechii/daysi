@@ -32,12 +32,11 @@ export const createSignedUrl = async ({
   if (!extension) throw new Error("Invalid file type")
 
   const id = createId()
-  const key = `${id}-${Date.now()}.${extension}`
   const signedUrl = await getSignedUrl(
     r2,
     new PutObjectCommand({
       Bucket: "daysi",
-      Key: key,
+      Key: id,
       ContentType: type,
     }),
     {
@@ -45,7 +44,7 @@ export const createSignedUrl = async ({
     },
   )
 
-  await db.insert(images).values({ id, key, type, size })
+  await db.insert(images).values({ id, type, size })
 
   return { signedUrl, id }
 }

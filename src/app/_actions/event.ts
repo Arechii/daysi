@@ -50,7 +50,7 @@ export const getEvent = async (id: string) => {
   const userEvent = await db.query.events.findFirst({
     with: {
       resets: {
-        with: { image: { columns: { key: true } } },
+        with: { image: { columns: { id: true, type: true } } },
         orderBy: desc(resets.createdAt),
       },
     },
@@ -70,7 +70,7 @@ export const getEvent = async (id: string) => {
       const user = users.find((u) => u.id === r.userId)
       return {
         ...r,
-        image: r.image && { url: imageUrl(r.image.key) },
+        image: r.image && { url: imageUrl(r.image) },
         user: {
           username: user?.username,
           profileImageUrl: user?.profileImageUrl,
