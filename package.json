@@ -11,8 +11,8 @@
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "3.379.1",
-    "@aws-sdk/s3-request-presigner": "3.379.1",
+    "@aws-sdk/client-s3": "3.383.0",
+    "@aws-sdk/s3-request-presigner": "3.383.0",
     "@clerk/nextjs": "4.23.2",
     "@formkit/auto-animate": "0.7.0",
     "@hookform/resolvers": "3.1.1",
