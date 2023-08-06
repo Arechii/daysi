@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { formatDate } from "~/utils"
 
 import { type GetEvents } from "~/app/_actions/event"
 
@@ -30,11 +31,11 @@ const EventCard = ({
             {description}
           </Link>
           <div className="flex h-5 flex-col items-start space-x-0 text-xs text-gray-500 dark:text-gray-400 md:flex-row md:items-center md:space-x-4 md:text-sm">
-            <span>started on {startedAt.toLocaleDateString()}</span>
+            <span>started on {formatDate(startedAt)}</span>
             {lastReset && (
               <>
                 <Separator orientation="vertical" className="hidden md:block" />
-                <span>last reset on {lastReset.toLocaleDateString()}</span>
+                <span>last reset on {formatDate(lastReset)}</span>
               </>
             )}
           </div>

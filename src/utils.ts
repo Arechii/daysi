@@ -15,6 +15,16 @@ export const createId = customAlphabet(
 export const imageUrl = (image: Pick<Image, "id" | "type">) =>
   `${env.R2_DOMAIN}/${image.id}.${image.type.split("/")[1]}`
 
+export const formatDate = (date?: Date | null) => {
+  if (!date) return "unknown"
+
+  return new Intl.DateTimeFormat("en", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(date)
+}
+
 export const getRelativeTime = (date?: Date | null) => {
   if (!date) return "unknown"
 
