@@ -1,5 +1,6 @@
 "use client"
 
+import { getRelativeTime } from "~/utils"
 import { TimerResetIcon } from "lucide-react"
 
 import { type GetEvent } from "~/app/_actions/event"
@@ -24,8 +25,8 @@ const TimelineItem = ({
             <AvatarFallback>{user.username?.[0]}</AvatarFallback>
           </Avatar>
           <span>
-            <span className="font-bold">{user.username}</span> reset the event
-            on {createdAt?.toLocaleDateString()}
+            <span className="font-bold">{user.username}</span> reset the event{" "}
+            {getRelativeTime(createdAt)}
           </span>
         </div>
         {(note ?? image) && (

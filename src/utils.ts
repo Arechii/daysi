@@ -14,3 +14,15 @@ export const createId = customAlphabet(
 
 export const imageUrl = (image: Pick<Image, "id" | "type">) =>
   `${env.R2_DOMAIN}/${image.id}.${image.type.split("/")[1]}`
+
+export const getRelativeTime = (date?: Date | null) => {
+  if (!date) return "unknown"
+
+  const daysDifference = Math.round(
+    (date.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24),
+  )
+
+  return new Intl.RelativeTimeFormat("en", {
+    numeric: "auto",
+  }).format(daysDifference, "day")
+}
