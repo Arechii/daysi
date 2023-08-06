@@ -29,7 +29,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
           <div tw="flex items-center">
             <img
               tw="mr-4 flex h-14 w-14 rounded-full"
-              src={user.profileImageUrl}
+              src={user.imageUrl}
               alt={user.username ?? ""}
             />
             <span tw="flex text-4xl text-zinc-700">{user.username}</span>

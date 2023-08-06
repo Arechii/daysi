@@ -73,7 +73,7 @@ export const getEvent = async (id: string) => {
         image: r.image && { url: imageUrl(r.image) },
         user: {
           username: user?.username,
-          profileImageUrl: user?.profileImageUrl,
+          imageUrl: user?.imageUrl,
         },
       }
     }),

@@ -20,7 +20,7 @@ const TimelineItem = ({
       <div className="flex w-full flex-col gap-2">
         <div className="flex items-center gap-2 pt-1.5">
           <Avatar className="h-7 w-7">
-            <AvatarImage src={user.profileImageUrl} />
+            <AvatarImage src={user.imageUrl} />
             <AvatarFallback>{user.username?.[0]}</AvatarFallback>
           </Avatar>
           <span>

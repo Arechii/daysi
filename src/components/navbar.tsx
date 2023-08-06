@@ -18,10 +18,7 @@ const Navbar = async () => {
       </Link>
       <div className="flex flex-row-reverse gap-2">
         {user ? (
-          <UserButton
-            username={user.username}
-            profileImageUrl={user.profileImageUrl}
-          />
+          <UserButton username={user.username} imageUrl={user.imageUrl} />
         ) : (
           <SignInButton afterSignInUrl="/dashboard" afterSignUpUrl="/dashboard">
             <Button variant="outline" size="icon">

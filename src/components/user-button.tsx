@@ -17,10 +17,10 @@ import {
 
 const UserButton = ({
   username,
-  profileImageUrl,
+  imageUrl,
 }: {
   username?: string | null
-  profileImageUrl?: string
+  imageUrl?: string
 }) => {
   const { signOut } = useAuth()
   const router = useRouter()
@@ -30,7 +30,7 @@ const UserButton = ({
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon">
           <Avatar className="h-9 w-9 select-none hover:cursor-pointer">
-            <AvatarImage src={profileImageUrl} />
+            <AvatarImage src={imageUrl} />
             <AvatarFallback>{username}</AvatarFallback>
           </Avatar>
         </Button>
