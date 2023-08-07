@@ -72,8 +72,8 @@ dependencies:
     specifier: 0.28.1
     version: 0.28.1(@planetscale/database@1.10.0)
   drizzle-zod:
-    specifier: 0.4.4
-    version: 0.4.4(drizzle-orm@0.28.1)(zod@3.21.4)
+    specifier: 0.5.0
+    version: 0.5.0(drizzle-orm@0.28.1)(zod@3.21.4)
   lucide-react:
     specifier: 0.264.0
     version: 0.264.0(react@18.2.0)
@@ -3783,8 +3783,8 @@ packages:
       '@planetscale/database': 1.10.0
     dev: false
 
-  /drizzle-zod@0.4.4(drizzle-orm@0.28.1)(zod@3.21.4):
-    resolution: {integrity: sha512-XNn0mjQ306Hvg+CuyKV98wnsWBWeTqv+kgE/N79Zj0EdCvjD2kaoN5sFDGFkMVqPQuP7IB1IPs0lEcOij1RvBA==}
+  /drizzle-zod@0.5.0(drizzle-orm@0.28.1)(zod@3.21.4):
+    resolution: {integrity: sha512-gIOXclphhaleYFEGZFxSyJBoiPRyksGyIPgmgWz6a+j5JeaOrOf1QOPjf1p5AHYA+1O3Q01ondGOZfgObxBTsg==}
     peerDependencies:
       drizzle-orm: '>=0.23.13'
       zod: '*'
