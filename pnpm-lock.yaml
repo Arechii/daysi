@@ -9,8 +9,8 @@ dependencies:
     specifier: 3.386.0
     version: 3.386.0
   '@aws-sdk/s3-request-presigner':
-    specifier: 3.385.0
-    version: 3.385.0
+    specifier: 3.386.0
+    version: 3.386.0
   '@clerk/nextjs':
     specifier: 4.23.2
     version: 4.23.2(next@13.4.13)(react-dom@18.2.0)(react@18.2.0)
@@ -614,8 +614,8 @@ packages:
       tslib: 2.6.0
     dev: false
 
-  /@aws-sdk/s3-request-presigner@3.385.0:
-    resolution: {integrity: sha512-KGP42YMs9THrUWtkWvhXExbnwz52N7bZUKrbvHlCUgRu4h07QHwzG8E6xhnN+6OV7O0IyzGirPA10h6AfIzzuQ==}
+  /@aws-sdk/s3-request-presigner@3.386.0:
+    resolution: {integrity: sha512-23fLLrcv7yaHrf7AXuJy0Rfw/YRaKetoQ7fA3rief6Bm6ZBZ2foDz3ROzBUdX/imSPJDQDq6vMDVKZ+Dloei4Q==}
     engines: {node: '>=14.0.0'}
     dependencies:
       '@aws-sdk/signature-v4-multi-region': 3.378.0
