@@ -81,7 +81,7 @@ const CreateReset = ({ eventId }: { eventId: string }) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" size="icon" disabled={isPending}>
+        <Button variant="secondary" size="icon" disabled={isPending}>
           {!isPending ? (
             <TimerResetIcon />
           ) : (

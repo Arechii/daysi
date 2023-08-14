@@ -16,7 +16,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "./ui/alert-dialog"
-import { Button } from "./ui/button"
+import { Button, buttonVariants } from "./ui/button"
 import { toast } from "./ui/use-toast"
 
 const DeleteEvent = ({ eventId }: { eventId: string }) => {
@@ -25,7 +25,12 @@ const DeleteEvent = ({ eventId }: { eventId: string }) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="link" size="icon" disabled={isPending}>
+        <Button
+          className="text-destructive"
+          variant="link"
+          size="icon"
+          disabled={isPending}
+        >
           {!isPending ? (
             <Trash2Icon />
           ) : (
@@ -44,6 +49,7 @@ const DeleteEvent = ({ eventId }: { eventId: string }) => {
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction
+            className={buttonVariants({ variant: "destructive" })}
             onClick={() => {
               startTransition(async () => {
                 await deleteEvent(eventId)

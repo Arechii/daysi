@@ -23,7 +23,7 @@ export default function Home() {
             </Button>
           </SignInButton>
         ) : (
-          <Button variant="outline" asChild>
+          <Button asChild>
             <Link href="/dashboard" className="flex gap-2">
               <LayoutDashboardIcon className="h-4 w-4" /> Dashboard
             </Link>

@@ -15,7 +15,7 @@ const TimelineItem = ({
 }: GetEvent["resets"][number]) => {
   return (
     <div className="mt-6 flex gap-6">
-      <span className="-ml-[52px] flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full bg-amber-500 text-white shadow-[0_0_0_6px_#fff] dark:shadow-[0_0_0_6px_#121212]">
+      <span className="-ml-[52px] flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full bg-primary text-white shadow-[0_0_0_6px_#fff] dark:shadow-[0_0_0_6px_#121212]">
         <TimerResetIcon size={28} />
       </span>
       <div className="flex w-full flex-col gap-2">
