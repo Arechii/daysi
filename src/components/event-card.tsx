@@ -20,7 +20,7 @@ const EventCard = ({
   return (
     <Card>
       <CardContent className="flex items-center gap-4 pt-6">
-        <p className="w-12 text-center text-2xl font-bold text-rose-400 md:w-20 md:text-3xl lg:text-4xl">
+        <p className="w-12 text-center text-2xl font-bold text-primary md:w-20 md:text-3xl lg:text-4xl">
           {daysSince}
         </p>
         <div className="flex w-3/4 flex-col">
@@ -30,7 +30,7 @@ const EventCard = ({
           >
             {description}
           </Link>
-          <div className="flex h-5 flex-col items-start space-x-0 text-xs text-gray-500 dark:text-gray-400 md:flex-row md:items-center md:space-x-4 md:text-sm">
+          <div className="flex h-5 flex-col items-start space-x-0 text-xs text-zinc-500 dark:text-zinc-400 md:flex-row md:items-center md:space-x-4 md:text-sm">
             <span>started on {formatDate(startedAt)}</span>
             {lastReset && (
               <>

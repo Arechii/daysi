@@ -42,7 +42,7 @@ const UserButton = ({
           className="flex gap-2"
           onClick={() => router.push("/dashboard")}
         >
-          <LayoutDashboardIcon className="h-4 w-4 text-blue-400" />
+          <LayoutDashboardIcon className="h-4 w-4" />
           Dashboard
         </DropdownMenuItem>
         <DropdownMenuSeparator />
@@ -53,7 +53,7 @@ const UserButton = ({
             void signOut()
           }}
         >
-          <LogOutIcon className="h-4 w-4 text-red-400" />
+          <LogOutIcon className="h-4 w-4" />
           Sign out
         </DropdownMenuItem>
       </DropdownMenuContent>

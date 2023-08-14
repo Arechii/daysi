@@ -12,7 +12,7 @@ const Navbar = async () => {
   return (
     <div className="sticky left-0 top-0 flex w-screen justify-between p-4">
       <Link href="/">
-        <h1 className="flex items-center gap-2 text-2xl font-bold tracking-wide text-rose-400">
+        <h1 className="flex items-center gap-2 text-2xl font-bold tracking-wide text-primary">
           <FlowerIcon /> Daysi
         </h1>
       </Link>

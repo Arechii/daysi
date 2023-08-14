@@ -8,7 +8,7 @@ export default async function Event({ params }: { params: { slug: string } }) {
 
   return (
     <div className="container">
-      <div className="ml-[52px] flex flex-col border-l-2 border-zinc-200 p-8 dark:border-zinc-800">
+      <div className="ml-[52px] flex flex-col border-l-2 border-border p-8">
         {event.resets.map((r) => (
           <TimelineItem key={r.id} {...r} />
         ))}

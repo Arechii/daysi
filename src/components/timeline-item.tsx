@@ -30,7 +30,7 @@ const TimelineItem = ({
           </span>
         </div>
         {(note ?? image) && (
-          <div className="mt-3 flex flex-col gap-4 rounded-md border-2 border-zinc-200 p-4 shadow-sm dark:border-zinc-800">
+          <div className="mt-3 flex flex-col gap-4 rounded-md border-2 border-border p-4 shadow-sm">
             {note && <p>{note}</p>}
             {image && (
               <img

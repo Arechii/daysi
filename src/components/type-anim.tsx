@@ -5,7 +5,7 @@ import { TypeAnimation } from "react-type-animation"
 const TypeAnim = () => {
   return (
     <TypeAnimation
-      className="inline-block decoration-slice underline decoration-rose-400"
+      className="inline-block decoration-slice underline decoration-primary"
       sequence={[
         "last played a boardgame?",
         1000,

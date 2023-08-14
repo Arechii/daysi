@@ -18,12 +18,12 @@ export default async function Image({ params }: { params: { slug: string } }) {
   return new ImageResponse(
     (
       <div tw="flex h-full w-full">
-        <div tw="flex h-full w-full flex-col items-center justify-around rounded-xl border-2 border-rose-400 bg-white">
+        <div tw="flex h-full w-full flex-col items-center justify-around rounded-xl border-2 border-primary bg-white">
           <div tw="flex w-full items-center justify-center text-6xl font-extrabold tracking-wide">
-            <div tw="mr-4 flex text-rose-400">{event.daysSince}</div>
+            <div tw="mr-4 flex text-primary">{event.daysSince}</div>
             <div tw="flex text-zinc-700">days since</div>
           </div>
-          <div tw="flex text-center text-6xl tracking-wide text-rose-400">
+          <div tw="flex text-center text-6xl tracking-wide text-primary">
             {event.description}
           </div>
           <div tw="flex items-center">
