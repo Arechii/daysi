@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { insertResetSchema } from "~/db/schema"
-import { TimerResetIcon } from "lucide-react"
+import { Loader2Icon, TimerResetIcon } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
@@ -82,7 +82,11 @@ const CreateReset = ({ eventId }: { eventId: string }) => {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="outline" size="icon" disabled={isPending}>
-          <TimerResetIcon />
+          {!isPending ? (
+            <TimerResetIcon />
+          ) : (
+            <Loader2Icon className="animate-spin" />
+          )}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">

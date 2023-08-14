@@ -1,7 +1,7 @@
 "use client"
 
 import { useTransition } from "react"
-import { Trash2Icon } from "lucide-react"
+import { Loader2Icon, Trash2Icon } from "lucide-react"
 
 import { deleteEvent } from "~/app/_actions/event"
 
@@ -26,7 +26,11 @@ const DeleteEvent = ({ eventId }: { eventId: string }) => {
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button variant="link" size="icon" disabled={isPending}>
-          <Trash2Icon />
+          {!isPending ? (
+            <Trash2Icon />
+          ) : (
+            <Loader2Icon className="animate-spin" />
+          )}
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>

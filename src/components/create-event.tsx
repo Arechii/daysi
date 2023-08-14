@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { insertEventSchema } from "~/db/schema"
 import { cn } from "~/utils"
 import { format } from "date-fns"
-import { CalendarIcon } from "lucide-react"
+import { CalendarIcon, Loader2Icon } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { type z } from "zod"
 
@@ -60,7 +60,15 @@ const CreateEvent = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button disabled={isPending}>Create</Button>
+        <Button disabled={isPending}>
+          {!isPending ? (
+            "Create"
+          ) : (
+            <>
+              <Loader2Icon className="mr-2 animate-spin" /> Creating...
+            </>
+          )}
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
