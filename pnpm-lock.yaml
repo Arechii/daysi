@@ -21,8 +21,8 @@ dependencies:
     specifier: 3.3.0
     version: 3.3.0(react-hook-form@7.45.4)
   '@planetscale/database':
-    specifier: 1.10.0
-    version: 1.10.0
+    specifier: 1.11.0
+    version: 1.11.0
   '@radix-ui/react-alert-dialog':
     specifier: 1.0.4
     version: 1.0.4(@types/react-dom@18.2.7)(@types/react@18.2.20)(react-dom@18.2.0)(react@18.2.0)
@@ -70,7 +70,7 @@ dependencies:
     version: 2.30.0
   drizzle-orm:
     specifier: 0.28.3
-    version: 0.28.3(@planetscale/database@1.10.0)
+    version: 0.28.3(@planetscale/database@1.11.0)
   drizzle-zod:
     specifier: 0.5.0
     version: 0.5.0(drizzle-orm@0.28.3)(zod@3.22.2)
@@ -1720,8 +1720,8 @@ packages:
       tslib: 2.6.0
     dev: true
 
-  /@planetscale/database@1.10.0:
-    resolution: {integrity: sha512-XMfNRjIPgGTga6g1YpGr7E21CcnHZcHZdyhRUIiZ/AlpD+ts65UF2B3wKjcu7MKMynmmcOGs6R9kAT6D1OTlZQ==}
+  /@planetscale/database@1.11.0:
+    resolution: {integrity: sha512-aWbU+D/IRHoDE9975y+Q4c+EwwAWxCPwFId+N1AhQVFXzbeJMkj6KN2iQtoi03elcLMRdfT+V3i9Z4WRw+/oIA==}
     engines: {node: '>=16'}
     dev: false
 
@@ -3760,7 +3760,7 @@ packages:
       - supports-color
     dev: true
 
-  /drizzle-orm@0.28.3(@planetscale/database@1.10.0):
+  /drizzle-orm@0.28.3(@planetscale/database@1.11.0):
     resolution: {integrity: sha512-7LwNEBJH5EFvkD0vm7RdKWDZsFP9CYR4AWN2fMwns/ezexoX3+UNoVOWGRPJf1qsj357SESldrNEueFvUDfZxA==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
@@ -3822,7 +3822,7 @@ packages:
       sqlite3:
         optional: true
     dependencies:
-      '@planetscale/database': 1.10.0
+      '@planetscale/database': 1.11.0
     dev: false
 
   /drizzle-zod@0.5.0(drizzle-orm@0.28.3)(zod@3.22.2):
@@ -3831,7 +3831,7 @@ packages:
       drizzle-orm: '>=0.23.13'
       zod: '*'
     dependencies:
-      drizzle-orm: 0.28.3(@planetscale/database@1.10.0)
+      drizzle-orm: 0.28.3(@planetscale/database@1.11.0)
       zod: 3.22.2
     dev: false
 
