@@ -1,4 +1,5 @@
-import { relations, type InferModel } from "drizzle-orm"
+import { createId } from "~/utils"
+import { InferSelectModel, relations } from "drizzle-orm"
 import {
   index,
   int,
@@ -15,7 +16,9 @@ const mysqlTable = mysqlTableCreator((name) => `daysi_${name}`)
 export const events = mysqlTable(
   "events",
   {
-    id: varchar("id", { length: 10 }).primaryKey(),
+    id: varchar("id", { length: 10 })
+      .primaryKey()
+      .$default(() => createId()),
     userId: varchar("userId", { length: 32 }).notNull(),
     description: varchar("description", { length: 128 }).notNull(),
     startedAt: timestamp("startedAt").defaultNow().notNull(),
@@ -30,7 +33,9 @@ export const events = mysqlTable(
 export const resets = mysqlTable(
   "resets",
   {
-    id: varchar("id", { length: 10 }).primaryKey(),
+    id: varchar("id", { length: 10 })
+      .primaryKey()
+      .$default(() => createId()),
     eventId: varchar("eventId", { length: 10 }).notNull(),
     userId: varchar("userId", { length: 32 }).notNull(),
     imageId: varchar("imageId", { length: 36 }),
@@ -45,7 +50,9 @@ export const resets = mysqlTable(
 )
 
 export const images = mysqlTable("images", {
-  id: varchar("id", { length: 10 }).primaryKey(),
+  id: varchar("id", { length: 10 })
+    .primaryKey()
+    .$default(() => createId()),
   type: varchar("type", { length: 15 }).notNull(),
   size: int("size").notNull(),
   createdAt: timestamp("createdAt").defaultNow(),
@@ -61,9 +68,9 @@ export const resetsRelations = relations(resets, ({ one }) => ({
   image: one(images, { fields: [resets.imageId], references: [images.id] }),
 }))
 
-export type Event = InferModel<typeof events>
-export type Reset = InferModel<typeof resets>
-export type Image = InferModel<typeof images>
+export type Event = InferSelectModel<typeof events>
+export type Reset = InferSelectModel<typeof resets>
+export type Image = InferSelectModel<typeof images>
 
 export const selectEventSchema = createSelectSchema(events)
 export const insertEventSchema = createInsertSchema(events, {

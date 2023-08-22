@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache"
 import { auth, clerkClient } from "@clerk/nextjs"
 import { db } from "~/db"
 import { events, images, resets, type insertEventSchema } from "~/db/schema"
-import { createId, imageUrl } from "~/utils"
+import { imageUrl } from "~/utils"
 import { and, desc, eq, inArray } from "drizzle-orm"
 import { type z } from "zod"
 
@@ -91,7 +91,6 @@ export const createEvent = async ({
   if (!userId) throw new Error("Unauthorized")
 
   await db.insert(events).values({
-    id: createId(),
     userId,
     description,
     startedAt,
