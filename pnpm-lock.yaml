@@ -18,8 +18,8 @@ dependencies:
     specifier: 0.8.0
     version: 0.8.0
   '@hookform/resolvers':
-    specifier: 3.3.1
-    version: 3.3.1(react-hook-form@7.47.0)
+    specifier: 3.3.2
+    version: 3.3.2(react-hook-form@7.47.0)
   '@planetscale/database':
     specifier: 1.11.0
     version: 1.11.0
@@ -1319,8 +1319,8 @@ packages:
     resolution: {integrity: sha512-G8f7489ka0mWyi+1IEZT+xgIwcpWtRMmE2x+IrVoQ+KM1cP6VDj/TbujZjwxdb0P8w8b16/qBfViRmydbYHwMw==}
     dev: false
 
-  /@hookform/resolvers@3.3.1(react-hook-form@7.47.0):
-    resolution: {integrity: sha512-K7KCKRKjymxIB90nHDQ7b9nli474ru99ZbqxiqDAWYsYhOsU3/4qLxW91y+1n04ic13ajjZ66L3aXbNef8PELQ==}
+  /@hookform/resolvers@3.3.2(react-hook-form@7.47.0):
+    resolution: {integrity: sha512-Tw+GGPnBp+5DOsSg4ek3LCPgkBOuOgS5DsDV7qsWNH9LZc433kgsWICjlsh2J9p04H2K66hsXPPb9qn9ILdUtA==}
     peerDependencies:
       react-hook-form: ^7.0.0
     dependencies:
