@@ -29,7 +29,7 @@ import { Textarea } from "./ui/textarea"
 import { toast } from "./ui/use-toast"
 
 const schema = z.object({
-  note: z.string().nullable().optional(),
+  note: z.string().optional(),
   image: z
     .custom<FileList>()
     .optional()
@@ -48,7 +48,7 @@ const CreateReset = ({ eventId }: { eventId: string }) => {
     resolver: zodResolver(schema),
   })
 
-  const onSubmit = ({ image, ...values }: z.infer<typeof schema>) => {
+  const onSubmit = ({ image, note }: z.infer<typeof schema>) => {
     setOpen(false)
     startTransition(async () => {
       let imageId: string | null = null
@@ -68,7 +68,7 @@ const CreateReset = ({ eventId }: { eventId: string }) => {
         imageId = id
       }
 
-      await createReset({ eventId, imageId, ...values })
+      await createReset({ eventId, imageId, note: note ?? null })
 
       toast({
         description: "Your event has been reset.",
