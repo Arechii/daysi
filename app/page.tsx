@@ -4,8 +4,6 @@ import TypeAnim from "components/type-anim"
 import { Button } from "components/ui/button"
 import { LayoutDashboardIcon, LogInIcon } from "lucide-react"
 
-export const runtime = "edge"
-
 export default function Home() {
   const { userId } = auth()
 

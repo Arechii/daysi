@@ -2,35 +2,38 @@
 
 import { revalidatePath } from "next/cache"
 import { auth } from "@clerk/nextjs"
+import { type Reset } from "@prisma/client"
+import { db } from "~/lib/db"
 import { createId } from "~/lib/utils"
-import { db } from "db"
-import { events, resets, type insertResetSchema } from "db/schema"
-import { and, eq } from "drizzle-orm"
-import { type z } from "zod"
 
 export const createReset = async ({
   eventId,
   note,
   imageId,
-}: Omit<z.infer<typeof insertResetSchema>, "id" | "userId">) => {
+}: Pick<Reset, "eventId" | "note" | "imageId">) => {
   const { userId } = auth()
 
   if (!userId) throw new Error("Unauthorized")
 
-  const event = await db.query.events.findFirst({
-    where: and(eq(events.id, eventId), eq(events.userId, userId)),
+  const event = await db.event.findFirst({
+    where: {
+      id: eventId,
+      userId,
+    },
   })
 
   if (!event) throw new Error("Event not found")
 
   const id = createId()
 
-  await db.insert(resets).values({
-    id,
-    eventId,
-    userId,
-    note,
-    imageId,
+  await db.reset.create({
+    data: {
+      id,
+      eventId,
+      userId,
+      note,
+      imageId,
+    },
   })
 
   revalidatePath("/dashboard")

@@ -3,7 +3,6 @@ import { ImageResponse } from "next/server"
 import { clerkClient } from "@clerk/nextjs"
 import { getEvent } from "app/_actions/event"
 
-export const runtime = "edge"
 export const contentType = "image/png"
 export const size = {
   width: 1200,

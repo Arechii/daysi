@@ -5,10 +5,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { cn } from "~/lib/utils"
 import { createEvent } from "app/_actions/event"
 import { format } from "date-fns"
-import { insertEventSchema } from "db/schema"
 import { CalendarIcon, Loader2Icon } from "lucide-react"
 import { useForm } from "react-hook-form"
-import { type z } from "zod"
+import { z } from "zod"
 
 import { Button } from "./ui/button"
 import { Calendar } from "./ui/calendar"
@@ -31,7 +30,10 @@ import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover"
 import { Textarea } from "./ui/textarea"
 import { toast } from "./ui/use-toast"
 
-const schema = insertEventSchema.pick({ description: true, startedAt: true })
+const schema = z.object({
+  description: z.string().min(3).max(128),
+  startedAt: z.date(),
+})
 
 const CreateEvent = () => {
   const [open, setOpen] = useState(false)
@@ -102,16 +104,9 @@ const CreateEvent = () => {
                       <FormControl>
                         <Button
                           variant={"outline"}
-                          className={cn(
-                            "w-full pl-3 text-left font-normal",
-                            !field.value && "text-muted-foreground",
-                          )}
+                          className={cn("w-full pl-3 text-left font-normal")}
                         >
-                          {field.value ? (
-                            format(field.value, "PPP")
-                          ) : (
-                            <span>Pick a date</span>
-                          )}
+                          {format(field.value, "PPP")}
                           <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                         </Button>
                       </FormControl>

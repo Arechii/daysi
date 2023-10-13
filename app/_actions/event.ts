@@ -2,11 +2,9 @@
 
 import { revalidatePath } from "next/cache"
 import { auth, clerkClient } from "@clerk/nextjs"
+import { type Event } from "@prisma/client"
+import { db } from "~/lib/db"
 import { imageUrl } from "~/lib/utils"
-import { db } from "db"
-import { events, images, resets, type insertEventSchema } from "db/schema"
-import { and, desc, eq, inArray } from "drizzle-orm"
-import { type z } from "zod"
 
 export type GetEvents = Awaited<ReturnType<typeof getEvents>>
 export type GetEvent = Awaited<ReturnType<typeof getEvent>>
@@ -22,17 +20,19 @@ export const getEvents = async () => {
 
   if (!userId) throw new Error("Unauthorized")
 
-  const userEvents = await db.query.events.findMany({
-    with: {
+  const userEvents = await db.event.findMany({
+    where: { userId },
+    orderBy: { startedAt: "desc" },
+    select: {
+      id: true,
+      description: true,
+      startedAt: true,
       resets: {
-        columns: { createdAt: true },
-        orderBy: desc(resets.createdAt),
-        limit: 1,
+        select: { createdAt: true },
+        orderBy: { createdAt: "desc" },
+        take: 1,
       },
     },
-    columns: { id: true, description: true, startedAt: true },
-    where: eq(events.userId, userId),
-    orderBy: desc(events.startedAt),
   })
 
   return userEvents.map(({ resets, ...e }) => {
@@ -47,14 +47,20 @@ export const getEvents = async () => {
 }
 
 export const getEvent = async (id: string) => {
-  const userEvent = await db.query.events.findFirst({
-    with: {
+  const userEvent = await db.event.findFirst({
+    where: { id },
+    select: {
+      id: true,
+      description: true,
+      startedAt: true,
+      createdAt: true,
+      updatedAt: true,
+      userId: true,
       resets: {
-        with: { image: { columns: { id: true, type: true } } },
-        orderBy: desc(resets.createdAt),
+        orderBy: { createdAt: "desc" },
+        include: { image: { select: { id: true, type: true } } },
       },
     },
-    where: and(eq(events.id, id)),
   })
 
   if (!userEvent) throw new Error("Event not found")
@@ -85,15 +91,17 @@ export const getEvent = async (id: string) => {
 export const createEvent = async ({
   description,
   startedAt,
-}: Pick<z.infer<typeof insertEventSchema>, "description" | "startedAt">) => {
+}: Pick<Event, "description" | "startedAt">) => {
   const { userId } = auth()
 
   if (!userId) throw new Error("Unauthorized")
 
-  await db.insert(events).values({
-    userId,
-    description,
-    startedAt,
+  await db.event.create({
+    data: {
+      userId,
+      description,
+      startedAt,
+    },
   })
 
   revalidatePath("/dashboard")
@@ -104,22 +112,13 @@ export const deleteEvent = async (id: string) => {
 
   if (!userId) throw new Error("Unauthorized")
 
-  const userEvent = await db.query.events.findFirst({
-    with: { resets: true },
-    where: and(eq(events.id, id), eq(events.userId, userId)),
+  const userEvent = await db.event.findFirst({
+    where: { userId, id },
   })
 
   if (!userEvent) throw new Error("Event not found")
 
-  const imageIds = userEvent.resets
-    .map((reset) => reset.imageId)
-    .filter(Boolean)
-
-  await db.delete(events).where(eq(events.id, id))
-  await db.delete(resets).where(eq(resets.eventId, id))
-
-  if (imageIds.length > 0)
-    await db.delete(images).where(inArray(images.id, imageIds))
+  await db.event.delete({ where: { id } })
 
   revalidatePath("/dashboard")
 }

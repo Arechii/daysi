@@ -1,8 +1,6 @@
 import { getEvent } from "app/_actions/event"
 import TimelineItem from "components/timeline-item"
 
-export const runtime = "edge"
-
 export default async function Event({ params }: { params: { slug: string } }) {
   const event = await getEvent(params.slug)
 

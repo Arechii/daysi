@@ -4,8 +4,6 @@ import { CalendarHeartIcon } from "lucide-react"
 
 import { getEvents } from "../_actions/event"
 
-export const runtime = "edge"
-
 export default async function Dashboard() {
   const events = await getEvents()
 

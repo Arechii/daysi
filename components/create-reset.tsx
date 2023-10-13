@@ -4,7 +4,6 @@ import { useState, useTransition } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { createSignedUrl } from "app/_actions/image"
 import { createReset } from "app/_actions/reset"
-import { insertResetSchema } from "db/schema"
 import { Loader2Icon, TimerResetIcon } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -29,7 +28,8 @@ import { Input } from "./ui/input"
 import { Textarea } from "./ui/textarea"
 import { toast } from "./ui/use-toast"
 
-const schema = insertResetSchema.pick({ note: true }).extend({
+const schema = z.object({
+  note: z.string().nullable().optional(),
   image: z
     .custom<FileList>()
     .optional()

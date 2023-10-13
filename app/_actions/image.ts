@@ -3,9 +3,8 @@
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3"
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
 import { currentUser } from "@clerk/nextjs"
+import { db } from "~/lib/db"
 import { createId } from "~/lib/utils"
-import { db } from "db"
-import { images } from "db/schema"
 import { env } from "env.mjs"
 
 const r2 = new S3Client({
@@ -44,7 +43,7 @@ export const createSignedUrl = async ({
     },
   )
 
-  await db.insert(images).values({ id, type, size })
+  await db.image.create({ data: { id, type, size } })
 
   return { signedUrl, id }
 }
