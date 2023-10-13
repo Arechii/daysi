@@ -2,12 +2,12 @@
 
 import { useState, useTransition } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { cn } from "~/lib/utils"
 import { createEvent } from "app/_actions/event"
 import { format } from "date-fns"
 import { insertEventSchema } from "db/schema"
 import { CalendarIcon, Loader2Icon } from "lucide-react"
 import { useForm } from "react-hook-form"
-import { cn } from "utils"
 import { type z } from "zod"
 
 import { Button } from "./ui/button"

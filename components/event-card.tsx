@@ -1,8 +1,8 @@
 "use client"
 
 import Link from "next/link"
+import { formatDate } from "~/lib/utils"
 import { type GetEvents } from "app/_actions/event"
-import { formatDate } from "utils"
 
 import CreateReset from "./create-reset"
 import DeleteEvent from "./delete-event"

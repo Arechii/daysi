@@ -2,10 +2,10 @@
 
 import { revalidatePath } from "next/cache"
 import { auth, clerkClient } from "@clerk/nextjs"
+import { imageUrl } from "~/lib/utils"
 import { db } from "db"
 import { events, images, resets, type insertEventSchema } from "db/schema"
 import { and, desc, eq, inArray } from "drizzle-orm"
-import { imageUrl } from "utils"
 import { type z } from "zod"
 
 export type GetEvents = Awaited<ReturnType<typeof getEvents>>

@@ -1,8 +1,8 @@
 "use client"
 
+import { getRelativeTime } from "~/lib/utils"
 import { type GetEvent } from "app/_actions/event"
 import { TimerResetIcon } from "lucide-react"
-import { getRelativeTime } from "utils"
 
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
 

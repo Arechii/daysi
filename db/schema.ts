@@ -1,3 +1,4 @@
+import { createId } from "~/lib/utils"
 import { relations, type InferSelectModel } from "drizzle-orm"
 import {
   index,
@@ -8,7 +9,6 @@ import {
   varchar,
 } from "drizzle-orm/mysql-core"
 import { createInsertSchema, createSelectSchema } from "drizzle-zod"
-import { createId } from "utils"
 import { z } from "zod"
 
 const mysqlTable = mysqlTableCreator((name) => `daysi_${name}`)

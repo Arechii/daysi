@@ -1,8 +1,8 @@
 import * as React from "react"
 import * as ToastPrimitives from "@radix-ui/react-toast"
+import { cn } from "~/lib/utils"
 import { cva, type VariantProps } from "class-variance-authority"
 import { XIcon } from "lucide-react"
-import { cn } from "utils"
 
 const ToastProvider = ToastPrimitives.Provider
 

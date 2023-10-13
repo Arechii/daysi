@@ -3,10 +3,10 @@
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3"
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
 import { currentUser } from "@clerk/nextjs"
+import { createId } from "~/lib/utils"
 import { db } from "db"
 import { images } from "db/schema"
 import { env } from "env.mjs"
-import { createId } from "utils"
 
 const r2 = new S3Client({
   region: "auto",

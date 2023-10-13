@@ -2,10 +2,10 @@
 
 import { revalidatePath } from "next/cache"
 import { auth } from "@clerk/nextjs"
+import { createId } from "~/lib/utils"
 import { db } from "db"
 import { events, resets, type insertResetSchema } from "db/schema"
 import { and, eq } from "drizzle-orm"
-import { createId } from "utils"
 import { type z } from "zod"
 
 export const createReset = async ({
