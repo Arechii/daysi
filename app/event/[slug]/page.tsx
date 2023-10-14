@@ -6,7 +6,7 @@ export default async function Event({ params }: { params: { slug: string } }) {
 
   return (
     <div className="container">
-      <div className="ml-[52px] flex flex-col border-l-2 border-border p-8">
+      <div className="flex flex-col border-l-2 border-border">
         {event.resets.map((r) => (
           <TimelineItem key={r.id} {...r} />
         ))}
