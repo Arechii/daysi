@@ -27,8 +27,8 @@ dependencies:
     specifier: 5.5.1-dev.1
     version: 5.5.1-dev.1(@planetscale/database@1.11.0)
   '@prisma/client':
-    specifier: 5.5.1-dev.1
-    version: 5.5.1-dev.1(prisma@5.5.1-dev.1)
+    specifier: 5.5.1
+    version: 5.5.1(prisma@5.5.1)
   '@radix-ui/react-alert-dialog':
     specifier: 1.0.5
     version: 1.0.5(@types/react-dom@18.2.14)(@types/react@18.2.31)(react-dom@18.2.0)(react@18.2.0)
@@ -158,8 +158,8 @@ devDependencies:
     specifier: 0.5.6
     version: 0.5.6(@ianvs/prettier-plugin-sort-imports@4.1.1)(prettier@3.0.3)
   prisma:
-    specifier: 5.5.1-dev.1
-    version: 5.5.1-dev.1
+    specifier: 5.5.1
+    version: 5.5.1
   tailwindcss:
     specifier: 3.3.4
     version: 3.3.4
@@ -1331,8 +1331,8 @@ packages:
       - supports-color
     dev: false
 
-  /@prisma/client@5.5.1-dev.1(prisma@5.5.1-dev.1):
-    resolution: {integrity: sha512-ErXzi3Hi2W2IAzV2ppc85bS6cKazUleQ8BYzrGuuXJzUTMBzbtz4QSdQkwkyW6+Dfo9KolCsALsnajCtx/Q2sg==}
+  /@prisma/client@5.5.1(prisma@5.5.1):
+    resolution: {integrity: sha512-Yvcwx1/Q0nIdv2jvH/4pyTRl5I+76/ef0C3xCrAkBKTIjXHiRptbyyK/+CWEaBY9yE98MIdi9gwZcR3C22eTuQ==}
     engines: {node: '>=16.13'}
     requiresBuild: true
     peerDependencies:
@@ -1342,7 +1342,7 @@ packages:
         optional: true
     dependencies:
       '@prisma/engines-version': 5.5.0-19.475c616176945d72f4330c92801f0c5e6398dc0f
-      prisma: 5.5.1-dev.1
+      prisma: 5.5.1
     dev: false
 
   /@prisma/driver-adapter-utils@5.5.1-dev.1:
@@ -1357,8 +1357,8 @@ packages:
     resolution: {integrity: sha512-/1orOUq7I54ISYBJockYB15FmF/VkCBeFzYYkWyLtBl2tLlJWHmA3NEUBM+wSmXGLK78BmuSNHrLbf8bmXkukQ==}
     dev: false
 
-  /@prisma/engines@5.5.1-dev.1:
-    resolution: {integrity: sha512-SwxcPyGCyIfWz7sifIfVrwG+MM1WeEyx1GlrESFTWkzqBG6PNeMMEt4BxxUktxoGaQ5H2xcKdKVULEZUokW/sQ==}
+  /@prisma/engines@5.5.1:
+    resolution: {integrity: sha512-6P4bTYb7WCWwHW50tsJvZTeZIM7HotuwDEY61wAX46b69eMbuXTsNB9dquEmwKaiG7ggk+igOoH8chSO3+/VkQ==}
     requiresBuild: true
 
   /@radix-ui/number@1.0.1:
@@ -4767,13 +4767,13 @@ packages:
     hasBin: true
     dev: true
 
-  /prisma@5.5.1-dev.1:
-    resolution: {integrity: sha512-7RYm2JyOY/jWpbmBKpnGpzqH1f9H8wTBTGfHcupoCNaj5Yw3jGnyHTiW3CX95ujJU1t0rt1NnXox3gmpEugUmw==}
+  /prisma@5.5.1:
+    resolution: {integrity: sha512-6oln3L3/9kB9GqngIbSCpoXaZAk65y7hqEOj9g+9pkTYi/fVxCQzQ6ivnePVUoFhp/M1BBjexQepw1ODqnAC5Q==}
     engines: {node: '>=16.13'}
     hasBin: true
     requiresBuild: true
     dependencies:
-      '@prisma/engines': 5.5.1-dev.1
+      '@prisma/engines': 5.5.1
 
   /prop-types@15.8.1:
     resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
