@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { ImageResponse } from "next/server"
+import { ImageResponse } from "next/og"
 import { clerkClient } from "@clerk/nextjs"
 import { getEvent } from "app/_actions/event"
 

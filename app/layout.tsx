@@ -1,3 +1,4 @@
+import { type Viewport } from "next"
 import { Inter } from "next/font/google"
 import { ClerkProvider } from "@clerk/nextjs"
 import { Analytics } from "@vercel/analytics/react"
@@ -17,8 +18,11 @@ const inter = Inter({
 export const metadata = {
   title: "Daysi",
   description: "Track the days since certain events.",
-  themeColor: "#fb7185",
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
+}
+
+export const viewport: Viewport = {
+  themeColor: "#fb7185",
 }
 
 export default function RootLayout({

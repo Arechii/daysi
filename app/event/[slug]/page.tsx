@@ -11,7 +11,9 @@ export default async function Event({ params }: { params: { slug: string } }) {
   return (
     <div className="container">
       <div className="flex flex-col border-l-2 border-border">
-        {user && <TimelineCreate user={user} />}
+        {user && (
+          <TimelineCreate username={user.username} imageUrl={user.imageUrl} />
+        )}
         {event.resets.map((r) => (
           <TimelineItem key={r.id} {...r} />
         ))}
