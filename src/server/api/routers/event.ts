@@ -1,13 +1,12 @@
 import { clerkClient } from "@clerk/nextjs"
-import { type inferRouterOutputs } from "@trpc/server"
 import { createId, imageUrl } from "~/lib/utils"
+import { type RouterOutputs } from "~/trpc/shared"
 import { z } from "zod"
 
-import { type AppRouter } from "../root"
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc"
 
-export type GetEvents = inferRouterOutputs<AppRouter>["event"]["getAll"]
-export type GetEvent = inferRouterOutputs<AppRouter>["event"]["getById"]
+export type GetEvents = RouterOutputs["event"]["getAll"]
+export type GetEvent = RouterOutputs["event"]["getById"]
 
 const daysSince = (date: Date) => {
   return Math.floor(
