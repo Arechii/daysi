@@ -1,22 +1,18 @@
-import { currentUser } from "@clerk/nextjs"
-import { api } from "~/trpc/server"
+import { Suspense } from "react"
 
+import Timeline from "~/app/_components/timeline"
 import TimelineCreate from "~/app/_components/timeline-create"
-import TimelineItem from "~/app/_components/timeline-item"
 
-export default async function Event({ params }: { params: { slug: string } }) {
-  const event = await api.event.getById.query(params.slug)
-  const user = await currentUser()
-
+export default function Event({ params }: { params: { slug: string } }) {
   return (
     <div className="container">
       <div className="flex flex-col border-l-2 border-border">
-        {user && (
-          <TimelineCreate username={user.username} imageUrl={user.imageUrl} />
-        )}
-        {event.resets.map((r) => (
-          <TimelineItem key={r.id} {...r} />
-        ))}
+        <Suspense>
+          <TimelineCreate />
+        </Suspense>
+        <Suspense>
+          <Timeline eventId={params.slug} />
+        </Suspense>
       </div>
     </div>
   )

@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { useAutoAnimate } from "@formkit/auto-animate/react"
 import { formatDate } from "~/lib/utils"
 import { type GetEvents } from "~/server/api/routers/event"
 
@@ -8,6 +9,21 @@ import CreateReset from "./create-reset"
 import RemoveEvent from "./remove-event"
 import { Card, CardContent } from "./ui/card"
 import { Separator } from "./ui/separator"
+
+const EventList = ({ events }: { events: GetEvents }) => {
+  const [parent] = useAutoAnimate()
+
+  return (
+    <div
+      ref={parent}
+      className="flex h-full flex-col gap-4 overflow-y-auto p-2"
+    >
+      {events.map((e) => (
+        <EventCard key={e.id} {...e} />
+      ))}
+    </div>
+  )
+}
 
 const EventCard = ({
   id,
@@ -48,4 +64,4 @@ const EventCard = ({
   )
 }
 
-export default EventCard
+export default EventList

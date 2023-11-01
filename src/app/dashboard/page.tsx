@@ -1,12 +1,10 @@
-import { api } from "~/trpc/server"
+import { Suspense } from "react"
 import { CalendarHeartIcon } from "lucide-react"
 
 import CreateEvent from "~/app/_components/create-event"
 import Events from "~/app/_components/events"
 
-export default async function Dashboard() {
-  const events = await api.event.getAll.query()
-
+export default function Dashboard() {
   return (
     <div className="container -mt-16 flex h-full flex-col gap-4 px-4 py-16">
       <div className="flex items-center justify-between">
@@ -15,7 +13,9 @@ export default async function Dashboard() {
         </h1>
         <CreateEvent />
       </div>
-      <Events events={events} />
+      <Suspense>
+        <Events />
+      </Suspense>
     </div>
   )
 }

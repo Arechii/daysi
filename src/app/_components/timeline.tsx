@@ -1,10 +1,21 @@
-"use client"
-
 import { getRelativeTime } from "~/lib/utils"
 import { type GetEvent } from "~/server/api/routers/event"
+import { api } from "~/trpc/server"
 import { TimerResetIcon } from "lucide-react"
 
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
+
+const Timeline = async ({ eventId }: { eventId: string }) => {
+  const event = await api.event.getById.query(eventId)
+
+  return (
+    <>
+      {event.resets.map((r) => (
+        <TimelineItem key={r.id} {...r} />
+      ))}
+    </>
+  )
+}
 
 const TimelineItem = ({
   user,
@@ -45,4 +56,4 @@ const TimelineItem = ({
   )
 }
 
-export default TimelineItem
+export default Timeline
