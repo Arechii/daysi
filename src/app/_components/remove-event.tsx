@@ -1,6 +1,7 @@
 "use client"
 
 import { useTransition } from "react"
+import { useRouter } from "next/navigation"
 import { api } from "~/trpc/react"
 import { Loader2Icon, Trash2Icon } from "lucide-react"
 
@@ -19,6 +20,8 @@ import { Button, buttonVariants } from "./ui/button"
 import { toast } from "./ui/use-toast"
 
 const RemoveEvent = ({ eventId }: { eventId: string }) => {
+  const router = useRouter()
+
   const [isPending, startTransition] = useTransition()
 
   const { mutateAsync: removeEvent } = api.event.remove.useMutation()
@@ -58,6 +61,7 @@ const RemoveEvent = ({ eventId }: { eventId: string }) => {
                   description: "Your event has been deleted.",
                   variant: "destructive",
                 })
+                router.refresh()
               })
             }}
           >
