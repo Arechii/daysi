@@ -1,7 +1,7 @@
 "use client"
 
 import { useAutoAnimate } from "@formkit/auto-animate/react"
-import { type GetEvents } from "app/_actions/event"
+import { type GetEvents } from "~/server/api/routers/event"
 
 import EventCard from "./event-card"
 

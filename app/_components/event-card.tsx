@@ -2,10 +2,10 @@
 
 import Link from "next/link"
 import { formatDate } from "~/lib/utils"
-import { type GetEvents } from "app/_actions/event"
+import { type GetEvents } from "~/server/api/routers/event"
 
 import CreateReset from "./create-reset"
-import DeleteEvent from "./delete-event"
+import RemoveEvent from "./remove-event"
 import { Card, CardContent } from "./ui/card"
 import { Separator } from "./ui/separator"
 
@@ -41,7 +41,7 @@ const EventCard = ({
         </div>
         <div className="ml-auto flex flex-col gap-2 md:flex-row">
           <CreateReset eventId={id} />
-          <DeleteEvent eventId={id} />
+          <RemoveEvent eventId={id} />
         </div>
       </CardContent>
     </Card>

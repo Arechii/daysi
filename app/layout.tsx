@@ -1,14 +1,18 @@
 import { type Viewport } from "next"
 import { Inter } from "next/font/google"
+import { headers } from "next/headers"
 import { ClerkProvider } from "@clerk/nextjs"
 import { Analytics } from "@vercel/analytics/react"
-import Navbar from "components/navbar"
-import { ThemeProvider } from "components/theme-provider"
-import { Toaster } from "components/ui/toaster"
 import { env } from "env.mjs"
 import { twMerge } from "tailwind-merge"
 
+import Navbar from "~/app/_components/navbar"
+import { ThemeProvider } from "~/app/_components/theme-provider"
+import { Toaster } from "~/app/_components/ui/toaster"
+
 import "~/styles/globals.css"
+
+import { TRPCReactProvider } from "~/trpc/react"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -38,13 +42,15 @@ export default function RootLayout({
           inter.variable,
         )}
       >
-        <ClerkProvider>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <Navbar />
-            {children}
-            <Toaster />
-          </ThemeProvider>
-        </ClerkProvider>
+        <TRPCReactProvider headers={headers()}>
+          <ClerkProvider>
+            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+              <Navbar />
+              {children}
+              <Toaster />
+            </ThemeProvider>
+          </ClerkProvider>
+        </TRPCReactProvider>
         <Analytics />
       </body>
     </html>

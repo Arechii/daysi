@@ -1,9 +1,10 @@
 "use client"
 
 import { useState, useTransition } from "react"
+import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { cn } from "~/lib/utils"
-import { createEvent } from "app/_actions/event"
+import { api } from "~/trpc/react"
 import { format } from "date-fns"
 import { CalendarIcon, Loader2Icon } from "lucide-react"
 import { useForm } from "react-hook-form"
@@ -36,8 +37,12 @@ const schema = z.object({
 })
 
 const CreateEvent = () => {
+  const router = useRouter()
+
   const [open, setOpen] = useState(false)
   const [isPending, startTransition] = useTransition()
+
+  const { mutateAsync: createEvent } = api.event.create.useMutation()
 
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
@@ -49,12 +54,15 @@ const CreateEvent = () => {
 
   const onSubmit = (values: z.infer<typeof schema>) => {
     setOpen(false)
+
     startTransition(async () => {
       await createEvent(values)
       toast({
         description: "Your event has been created.",
       })
+      router.refresh()
     })
+
     form.reset()
   }
 

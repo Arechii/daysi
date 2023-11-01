@@ -4,17 +4,15 @@ import { PrismaClient } from "@prisma/client"
 import { env } from "~/env.mjs"
 
 const globalForPrisma = globalThis as unknown as {
-  db: PrismaClient | undefined
+  prisma: PrismaClient | undefined
 }
 
 export const db =
-  globalForPrisma.db ??
+  globalForPrisma.prisma ??
   new PrismaClient({
     adapter: new PrismaPlanetScale(connect({ url: env.DATABASE_URL })),
     log:
-      process.env.NODE_ENV === "development"
-        ? ["query", "error", "warn"]
-        : ["error"],
+      env.NODE_ENV === "development" ? ["query", "error", "warn"] : ["error"],
   })
 
-if (process.env.NODE_ENV !== "production") globalForPrisma.db = db
+if (env.NODE_ENV !== "production") globalForPrisma.prisma = db

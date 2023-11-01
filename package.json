@@ -31,6 +31,11 @@
     "@radix-ui/react-slot": "1.0.2",
     "@radix-ui/react-toast": "1.1.5",
     "@t3-oss/env-nextjs": "0.7.1",
+    "@tanstack/react-query": "4.32.6",
+    "@trpc/client": "10.43.0",
+    "@trpc/next": "10.43.0",
+    "@trpc/react-query": "10.43.0",
+    "@trpc/server": "10.43.0",
     "@vercel/analytics": "1.1.1",
     "class-variance-authority": "0.7.0",
     "clsx": "2.0.0",
@@ -44,6 +49,7 @@
     "react-dom": "18.2.0",
     "react-hook-form": "7.47.0",
     "react-type-animation": "3.2.0",
+    "superjson": "1.13.1",
     "tailwind-merge": "2.0.0",
     "tailwindcss-animate": "1.0.7",
     "zod": "3.22.4"
@@ -58,7 +64,6 @@
     "@typescript-eslint/eslint-plugin": "6.9.1",
     "@typescript-eslint/parser": "6.9.1",
     "autoprefixer": "10.4.16",
-    "dotenv": "16.3.1",
     "eslint": "8.52.0",
     "eslint-config-next": "14.0.1",
     "postcss": "8.4.31",
@@ -67,5 +72,9 @@
     "prisma": "5.5.2",
     "tailwindcss": "3.3.5",
     "typescript": "5.2.2"
-  }
+  },
+  "ct3aMetadata": {
+    "initVersion": "7.22.0"
+  },
+  "packageManager": "pnpm@8.9.2"
 }

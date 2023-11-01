@@ -1,8 +1,9 @@
 import Link from "next/link"
 import { auth, SignInButton } from "@clerk/nextjs"
-import TypeAnim from "components/type-anim"
-import { Button } from "components/ui/button"
 import { LayoutDashboardIcon, LogInIcon } from "lucide-react"
+
+import TypeAnim from "~/app/_components/type-anim"
+import { Button } from "~/app/_components/ui/button"
 
 export default function Home() {
   const { userId } = auth()

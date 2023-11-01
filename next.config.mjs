@@ -5,8 +5,6 @@
 await import("./env.mjs")
 
 /** @type {import("next").NextConfig} */
-const config = {
-  reactStrictMode: true,
-}
+const config = {}
 
 export default config

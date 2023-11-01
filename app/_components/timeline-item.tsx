@@ -1,7 +1,7 @@
 "use client"
 
 import { getRelativeTime } from "~/lib/utils"
-import { type GetEvent } from "app/_actions/event"
+import { type GetEvent } from "~/server/api/routers/event"
 import { TimerResetIcon } from "lucide-react"
 
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"

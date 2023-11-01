@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { ImageResponse } from "next/og"
 import { clerkClient } from "@clerk/nextjs"
-import { getEvent } from "app/_actions/event"
+import { api } from "~/trpc/server"
 
 export const contentType = "image/png"
 export const size = {
@@ -10,7 +10,7 @@ export const size = {
 }
 
 export default async function Image({ params }: { params: { slug: string } }) {
-  const event = await getEvent(params.slug)
+  const event = await api.event.getById.query(params.slug)
   const user = await clerkClient.users.getUser(event.userId)
 
   return new ImageResponse(

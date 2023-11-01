@@ -1,9 +1,9 @@
 "use client"
 
 import { useState, useTransition } from "react"
+import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { createSignedUrl } from "app/_actions/image"
-import { createReset } from "app/_actions/reset"
+import { api } from "~/trpc/react"
 import { Loader2Icon, TimerResetIcon } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -41,8 +41,14 @@ const schema = z.object({
 })
 
 const CreateReset = ({ eventId }: { eventId: string }) => {
+  const router = useRouter()
+
   const [open, setOpen] = useState(false)
   const [isPending, startTransition] = useTransition()
+
+  const { mutateAsync: createReset } = api.reset.create.useMutation()
+  const { mutateAsync: createImageSignedUrl } =
+    api.image.createSignedUrl.useMutation()
 
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
@@ -55,7 +61,7 @@ const CreateReset = ({ eventId }: { eventId: string }) => {
 
       if (image) {
         const { type, size } = image
-        const { signedUrl, id } = await createSignedUrl({
+        const { signedUrl, id } = await createImageSignedUrl({
           type,
           size,
         })
@@ -73,6 +79,8 @@ const CreateReset = ({ eventId }: { eventId: string }) => {
       toast({
         description: "Your event has been reset.",
       })
+
+      router.refresh()
     })
     form.reset()
   }

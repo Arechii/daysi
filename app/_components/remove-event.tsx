@@ -1,7 +1,7 @@
 "use client"
 
 import { useTransition } from "react"
-import { deleteEvent } from "app/_actions/event"
+import { api } from "~/trpc/react"
 import { Loader2Icon, Trash2Icon } from "lucide-react"
 
 import {
@@ -18,8 +18,10 @@ import {
 import { Button, buttonVariants } from "./ui/button"
 import { toast } from "./ui/use-toast"
 
-const DeleteEvent = ({ eventId }: { eventId: string }) => {
+const RemoveEvent = ({ eventId }: { eventId: string }) => {
   const [isPending, startTransition] = useTransition()
+
+  const { mutateAsync: removeEvent } = api.event.remove.useMutation()
 
   return (
     <AlertDialog>
@@ -51,7 +53,7 @@ const DeleteEvent = ({ eventId }: { eventId: string }) => {
             className={buttonVariants({ variant: "destructive" })}
             onClick={() => {
               startTransition(async () => {
-                await deleteEvent(eventId)
+                await removeEvent(eventId)
                 toast({
                   description: "Your event has been deleted.",
                   variant: "destructive",
@@ -67,4 +69,4 @@ const DeleteEvent = ({ eventId }: { eventId: string }) => {
   )
 }
 
-export default DeleteEvent
+export default RemoveEvent

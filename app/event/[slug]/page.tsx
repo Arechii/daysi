@@ -1,11 +1,11 @@
 import { currentUser } from "@clerk/nextjs"
-import { getEvent } from "app/_actions/event"
-import TimelineItem from "components/timeline-item"
+import { api } from "~/trpc/server"
 
-import TimelineCreate from "~/components/timeline-create"
+import TimelineCreate from "~/app/_components/timeline-create"
+import TimelineItem from "~/app/_components/timeline-item"
 
 export default async function Event({ params }: { params: { slug: string } }) {
-  const event = await getEvent(params.slug)
+  const event = await api.event.getById.query(params.slug)
   const user = await currentUser()
 
   return (
