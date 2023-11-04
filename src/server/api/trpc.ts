@@ -9,10 +9,6 @@
 
 import { type NextRequest } from "next/server"
 import { auth } from "@clerk/nextjs"
-import {
-  type SignedInAuthObject,
-  type SignedOutAuthObject,
-} from "@clerk/nextjs/server"
 import { initTRPC, TRPCError } from "@trpc/server"
 import { db } from "~/server/db"
 import superjson from "superjson"
@@ -30,7 +26,7 @@ import { r2 } from "../r2"
 
 interface CreateContextOptions {
   headers: Headers
-  auth: SignedInAuthObject | SignedOutAuthObject
+  auth: ReturnType<typeof auth>
 }
 
 /**
@@ -122,7 +118,8 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
   }
   return next({
     ctx: {
-      auth: ctx.auth,
+      // infers `userId` as non-nullable
+      auth: { ...ctx.auth, userId: ctx.auth.userId },
     },
   })
 })
