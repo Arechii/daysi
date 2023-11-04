@@ -8,8 +8,8 @@
  */
 
 import { type NextRequest } from "next/server"
+import { auth } from "@clerk/nextjs"
 import {
-  getAuth,
   type SignedInAuthObject,
   type SignedOutAuthObject,
 } from "@clerk/nextjs/server"
@@ -66,7 +66,7 @@ export const createTRPCContext = (opts: { req: NextRequest }) => {
 
   return createInnerTRPCContext({
     headers: opts.req.headers,
-    auth: getAuth(opts.req),
+    auth: auth(),
   })
 }
 
