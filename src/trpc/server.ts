@@ -1,4 +1,4 @@
-import { headers } from "next/headers"
+import { cookies } from "next/headers"
 import {
   createTRPCProxyClient,
   loggerLink,
@@ -19,9 +19,10 @@ export const api = createTRPCProxyClient<AppRouter>({
     unstable_httpBatchStreamLink({
       url: getUrl(),
       headers() {
-        const heads = new Map(headers())
-        heads.set("x-trpc-source", "rsc")
-        return Object.fromEntries(heads)
+        return {
+          cookie: cookies().toString(),
+          "x-trpc-source": "rsc",
+        }
       },
     }),
   ],

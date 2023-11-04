@@ -1,6 +1,6 @@
 import { type Viewport } from "next"
 import { Inter } from "next/font/google"
-import { headers } from "next/headers"
+import { cookies } from "next/headers"
 import { ClerkProvider } from "@clerk/nextjs"
 import { Analytics } from "@vercel/analytics/react"
 import { env } from "~/env.mjs"
@@ -42,7 +42,7 @@ export default function RootLayout({
           inter.variable,
         )}
       >
-        <TRPCReactProvider headers={headers()}>
+        <TRPCReactProvider cookies={cookies().toString()}>
           <ClerkProvider>
             <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
               <Navbar />
