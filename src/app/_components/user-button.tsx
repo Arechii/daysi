@@ -1,7 +1,7 @@
 "use client"
 
 import { useRouter } from "next/navigation"
-import { useAuth } from "@clerk/nextjs/app-beta/client"
+import { useAuth } from "@clerk/nextjs"
 import { LayoutDashboardIcon, LogOutIcon } from "lucide-react"
 
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
