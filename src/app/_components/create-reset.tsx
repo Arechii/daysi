@@ -1,13 +1,13 @@
 "use client"
 
 import { useState, useTransition } from "react"
-import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { api } from "~/trpc/react"
 import { Loader2Icon, TimerResetIcon } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
+import { revalidate } from "../_actions/utils"
 import { Button } from "./ui/button"
 import {
   Dialog,
@@ -41,8 +41,6 @@ const schema = z.object({
 })
 
 const CreateReset = ({ eventId }: { eventId: string }) => {
-  const router = useRouter()
-
   const [open, setOpen] = useState(false)
   const [isPending, startTransition] = useTransition()
 
@@ -80,7 +78,8 @@ const CreateReset = ({ eventId }: { eventId: string }) => {
         description: "Your event has been reset.",
       })
 
-      router.refresh()
+      revalidate("/dashboard")
+      revalidate("/event/[slug]")
     })
     form.reset()
   }

@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useTransition } from "react"
-import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { cn } from "~/lib/utils"
 import { api } from "~/trpc/react"
@@ -10,6 +9,7 @@ import { CalendarIcon, Loader2Icon } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
+import { revalidate } from "../_actions/utils"
 import { Button } from "./ui/button"
 import { Calendar } from "./ui/calendar"
 import {
@@ -37,8 +37,6 @@ const schema = z.object({
 })
 
 const CreateEvent = () => {
-  const router = useRouter()
-
   const [open, setOpen] = useState(false)
   const [isPending, startTransition] = useTransition()
 
@@ -60,7 +58,7 @@ const CreateEvent = () => {
       toast({
         description: "Your event has been created.",
       })
-      router.refresh()
+      revalidate("/dashboard")
     })
 
     form.reset()
