@@ -15,7 +15,7 @@
     "@aws-sdk/client-s3": "3.441.0",
     "@aws-sdk/s3-request-presigner": "3.441.0",
     "@clerk/nextjs": "4.26.2",
-    "@formkit/auto-animate": "0.8.0",
+    "@formkit/auto-animate": "0.8.1",
     "@hookform/resolvers": "3.3.2",
     "@planetscale/database": "1.11.0",
     "@prisma/adapter-planetscale": "5.5.2",
