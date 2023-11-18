@@ -1,4 +1,4 @@
-import { connect } from "@planetscale/database"
+import { Client } from "@planetscale/database"
 import { PrismaPlanetScale } from "@prisma/adapter-planetscale"
 import { PrismaClient } from "@prisma/client"
 import { env } from "~/env.mjs"
@@ -10,7 +10,7 @@ const globalForPrisma = globalThis as unknown as {
 export const db =
   globalForPrisma.prisma ??
   new PrismaClient({
-    adapter: new PrismaPlanetScale(connect({ url: env.DATABASE_URL })),
+    adapter: new PrismaPlanetScale(new Client({ url: env.DATABASE_URL })),
     log:
       env.NODE_ENV === "development" ? ["query", "error", "warn"] : ["error"],
   })
