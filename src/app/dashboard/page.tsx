@@ -1,8 +1,9 @@
-import { Suspense } from "react"
 import { CalendarHeartIcon } from "lucide-react"
+import { Suspense } from "react"
 
 import CreateEvent from "~/app/_components/create-event"
-import Events from "~/app/_components/events"
+import { api } from "~/trpc/server"
+import EventList from "../_components/event-list"
 
 export default function Dashboard() {
   return (
@@ -18,4 +19,10 @@ export default function Dashboard() {
       </Suspense>
     </div>
   )
+}
+
+const Events = async () => {
+  const events = await api.event.getAll.query()
+
+  return <EventList events={events} />
 }
