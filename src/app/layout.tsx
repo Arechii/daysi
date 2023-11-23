@@ -3,7 +3,7 @@ import { Inter } from "next/font/google"
 import { cookies } from "next/headers"
 import { ClerkProvider } from "@clerk/nextjs"
 import { Analytics } from "@vercel/analytics/react"
-import { env } from "~/env.mjs"
+import { env } from "~/env"
 import { twMerge } from "tailwind-merge"
 
 import Navbar from "~/app/_components/navbar"

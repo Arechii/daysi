@@ -3,7 +3,7 @@ import { clsx, type ClassValue } from "clsx"
 import { customAlphabet } from "nanoid"
 import { twMerge } from "tailwind-merge"
 
-import { env } from "../env.mjs"
+import { env } from "../env.js"
 
 export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs))
 
