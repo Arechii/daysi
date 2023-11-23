@@ -32,6 +32,7 @@ const config = {
       },
     ],
     "@next/next/no-img-element": "off",
+    "@typescript-eslint/require-await": "off",
   },
 }
 

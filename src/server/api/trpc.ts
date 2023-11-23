@@ -7,8 +7,7 @@
  * need to use are documented accordingly near the end.
  */
 
-import { type NextRequest } from "next/server"
-import { auth } from "@clerk/nextjs"
+import type { auth } from "@clerk/nextjs"
 import { initTRPC, TRPCError } from "@trpc/server"
 import { db } from "~/server/db"
 import superjson from "superjson"
@@ -22,48 +21,20 @@ import { r2 } from "../r2"
  * This section defines the "contexts" that are available in the backend API.
  *
  * These allow you to access things when processing a request, like the database, the session, etc.
+ * This helper generates the "internals" for a tRPC context. The API handler and RSC clients each
+ * wrap this and provides the required context.
+ *
+ * @see https://trpc.io/docs/server/context
  */
-
-interface CreateContextOptions {
+export const createTRPCContext = async (opts: {
   headers: Headers
   auth: ReturnType<typeof auth>
-}
-
-/**
- * This helper generates the "internals" for a tRPC context. If you need to use it, you can export
- * it from here.
- *
- * Examples of things you may need it for:
- * - testing, so we don't have to mock Next.js' req/res
- * - tRPC's `createSSGHelpers`, where we don't have req/res
- *
- * @see https://create.t3.gg/en/usage/trpc#-serverapitrpcts
- */
-export const createInnerTRPCContext = ({
-  headers,
-  auth,
-}: CreateContextOptions) => {
+}) => {
   return {
-    headers,
-    auth,
     db,
     r2,
+    ...opts,
   }
-}
-
-/**
- * This is the actual context you will use in your router. It will be used to process every request
- * that goes through your tRPC endpoint.
- *
- * @see https://trpc.io/docs/context
- */
-export const createTRPCContext = (opts: { req: NextRequest }) => {
-  // Fetch stuff that depends on the request
-
-  return createInnerTRPCContext({
-    headers: opts.req.headers,
-    auth: auth(),
-  })
 }
 
 /**
@@ -73,7 +44,6 @@ export const createTRPCContext = (opts: { req: NextRequest }) => {
  * ZodErrors so that you get typesafety on the frontend if your procedure fails due to validation
  * errors on the backend.
  */
-
 const t = initTRPC.context<typeof createTRPCContext>().create({
   transformer: superjson,
   errorFormatter({ shape, error }) {
