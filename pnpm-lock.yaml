@@ -140,8 +140,8 @@ devDependencies:
     specifier: 0.5.1
     version: 0.5.1
   '@types/eslint':
-    specifier: 8.44.7
-    version: 8.44.7
+    specifier: 8.56.12
+    version: 8.56.12
   '@types/node':
     specifier: 20.9.4
     version: 20.9.4
@@ -2684,8 +2684,8 @@ packages:
       '@types/node': 20.9.4
     dev: false
 
-  /@types/eslint@8.44.7:
-    resolution: {integrity: sha512-f5ORu2hcBbKei97U73mf+l9t4zTGl74IqZ0GQk4oVea/VS8tQZYkUveSYojk+frraAVYId0V2WC9O4PTNru2FQ==}
+  /@types/eslint@8.56.12:
+    resolution: {integrity: sha512-03ruubjWyOHlmljCVoxSuNDdmfZDzsrrz0P2LeJsOXr+ZwFQ+0yQIwNCwt/GYhV7Z31fgtXJTAEs+FYlEL851g==}
     dependencies:
       '@types/estree': 1.0.5
       '@types/json-schema': 7.0.15
